@@ -12,6 +12,7 @@ export default function HomeNavbar() {
         <Link to="/products">Catalog</Link>
         <a href="#custom-order">Custom Order</a>
         <a href="#works">Our Work</a>
+        <Link to="/auth/login">Login</Link>
       </nav>
       <Link className="navbar__basket" to="/basket">
         Basket <span>{basketCount}</span>
