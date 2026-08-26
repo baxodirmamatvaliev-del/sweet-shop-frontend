@@ -3,32 +3,26 @@ import {
   getProductImageUrl,
   type Product,
 } from "../../services/ProductService";
+import { convertLegacyPriceToUSD, formatUSD } from "../../../lib/currency";
+import { animateToBasket } from "../../../lib/animateToBasket";
+import type { MouseEvent } from "react";
 
 type ProductCardProps = {
   product: Product;
 };
 
-const formatPrice = (price: number) =>
-  new Intl.NumberFormat("en-US").format(price);
-
 export default function ProductCard({ product }: ProductCardProps) {
-  const { setItems } = useBasket();
+  const { addItem } = useBasket();
+  const price = convertLegacyPriceToUSD(product.productPrice);
 
-  const handleAddToBasket = () => {
-    setItems((currentItems) => {
-      const existingItem = currentItems.find(
-        (item) => item.productId === product._id,
-      );
-
-      if (existingItem) {
-        return currentItems.map((item) =>
-          item.productId === product._id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item,
-        );
-      }
-
-      return [...currentItems, { productId: product._id, quantity: 1 }];
+  const handleAddToBasket = (event: MouseEvent<HTMLButtonElement>) => {
+    const card = event.currentTarget.closest(".products-card");
+    animateToBasket(card?.querySelector("img") ?? null);
+    addItem({
+      productId: product._id,
+      name: product.productName,
+      image: getProductImageUrl(product.productImage),
+      price,
     });
   };
 
@@ -45,7 +39,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         <h2>{product.productName}</h2>
         <p>{product.productDesc || "A freshly made Sweet Shop dessert."}</p>
         <div className="products-card__footer">
-          <strong>UZS {formatPrice(product.productPrice)}</strong>
+          <strong>{formatUSD(price)}</strong>
           <button
             className="button button--yellow button--small"
             onClick={handleAddToBasket}

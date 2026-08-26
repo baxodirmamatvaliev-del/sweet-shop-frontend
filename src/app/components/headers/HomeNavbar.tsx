@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import useBasket from "../../hooks/useBasket";
+import { BasketIcon } from "../basket/BasketIcons";
 
 export default function HomeNavbar() {
   const { items } = useBasket();
@@ -15,7 +16,7 @@ export default function HomeNavbar() {
         <Link to="/auth/login">Login</Link>
       </nav>
       <Link className="navbar__basket" to="/basket">
-        Basket <span>{basketCount}</span>
+        <BasketIcon /> Basket <span>{basketCount}</span>
       </Link>
     </header>
   );

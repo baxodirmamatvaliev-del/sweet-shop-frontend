@@ -1,13 +1,19 @@
+import useBasket from "../../hooks/useBasket";
+import { formatUSD } from "../../../lib/currency";
+import { animateToBasket } from "../../../lib/animateToBasket";
+
 const products = [
-  ["krem.zamok1.png", "Creamy Dream", "Light cream on a vanilla base"],
-  ["krem.zamok2.png", "Raspberry Delight", "Raspberry and smooth chocolate"],
-  ["krem.zamok3.png", "Colorful Celebration", "Colorful cream on a sponge base"],
-  ["krem.zamok4.png", "Chocolate World", "A soft chocolate cupcake"],
-  ["krem.zamok5.png", "Dragon's Tear", "Delicate cream and decorations"],
-  ["krem.zamok6.png", "Summer Fantasy", "A bright and fruity flavor"],
+  { id: "home-1", image: "krem.zamok1.png", name: "Creamy Dream", description: "Light cream on a vanilla base", price: 15 },
+  { id: "home-2", image: "krem.zamok2.png", name: "Raspberry Delight", description: "Raspberry and smooth chocolate", price: 15 },
+  { id: "home-3", image: "krem.zamok3.png", name: "Colorful Celebration", description: "Colorful cream on a sponge base", price: 15 },
+  { id: "home-4", image: "krem.zamok4.png", name: "Chocolate World", description: "A soft chocolate cupcake", price: 15 },
+  { id: "home-5", image: "krem.zamok5.png", name: "Dragon's Tear", description: "Delicate cream and decorations", price: 15 },
+  { id: "home-6", image: "krem.zamok6.png", name: "Summer Fantasy", description: "A bright and fruity flavor", price: 15 },
 ];
 
 export default function NewDishes() {
+  const { addItem } = useBasket();
+
   return (
     <section className="catalog home-section" id="catalog">
       <div className="home-container">
@@ -26,15 +32,30 @@ export default function NewDishes() {
           </p>
         </div>
         <div className="product-grid">
-          {products.map(([image, title, description]) => (
-            <article className="product-card" key={title}>
-              <img src={`/img/${image}`} alt={title} />
+          {products.map((product) => (
+            <article className="product-card" key={product.id}>
+              <img src={`/img/${product.image}`} alt={product.name} />
               <div className="product-card__body">
-                <h3>{title}</h3>
-                <p>{description}</p>
+                <h3>{product.name}</h3>
+                <p>{product.description}</p>
                 <div className="product-card__footer">
-                  <strong>UZS 150,000</strong>
-                  <button className="button button--small">Choose</button>
+                  <strong>{formatUSD(product.price)}</strong>
+                  <button
+                    className="button button--small"
+                    onClick={(event) => {
+                      const card = event.currentTarget.closest(".product-card");
+                      animateToBasket(card?.querySelector("img") ?? null);
+                      addItem({
+                        productId: product.id,
+                        name: product.name,
+                        image: `/img/${product.image}`,
+                        price: product.price,
+                      });
+                    }}
+                    type="button"
+                  >
+                    Add to basket
+                  </button>
                 </div>
               </div>
             </article>
