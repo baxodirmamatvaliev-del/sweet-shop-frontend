@@ -2,9 +2,11 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   loginMember,
   signupMember,
+  updateMember,
   type AuthResponse,
   type LoginInput,
   type SignupInput,
+  type UpdateMemberInput,
 } from "../../services/MemberService";
 import type { ApiStatus } from "../../../lib/types/common";
 
@@ -14,8 +16,18 @@ type AuthState = {
   error: string | null;
 };
 
+const getSavedAuth = (): AuthResponse | null => {
+  try {
+    const savedAuth = localStorage.getItem("sweetShopAuth");
+    return savedAuth ? (JSON.parse(savedAuth) as AuthResponse) : null;
+  } catch {
+    localStorage.removeItem("sweetShopAuth");
+    return null;
+  }
+};
+
 const initialState: AuthState = {
-  data: null,
+  data: getSavedAuth(),
   status: "idle",
   error: null,
 };
@@ -37,10 +49,27 @@ export const signup = createAsyncThunk(
   "auth/signup",
   async (input: SignupInput, { rejectWithValue }) => {
     try {
-      return await signupMember(input);
+      await signupMember(input);
+      return await loginMember({
+        memberNick: input.memberNick,
+        memberPassword: input.memberPassword,
+      });
     } catch (error) {
       return rejectWithValue(
         error instanceof Error ? error.message : "Sign up failed.",
+      );
+    }
+  },
+);
+
+export const updateProfile = createAsyncThunk(
+  "auth/updateProfile",
+  async (input: UpdateMemberInput, { rejectWithValue }) => {
+    try {
+      return await updateMember(input);
+    } catch (error) {
+      return rejectWithValue(
+        error instanceof Error ? error.message : "Profile update failed.",
       );
     }
   },
@@ -57,6 +86,7 @@ const authSlice = createSlice({
       state.data = null;
       state.status = "idle";
       state.error = null;
+      localStorage.removeItem("sweetShopAuth");
     },
   },
   extraReducers(builder) {
@@ -84,6 +114,24 @@ const authSlice = createSlice({
       .addCase(signup.rejected, (state, action) => {
         state.status = "failed";
         state.error = String(action.payload ?? "Sign up failed.");
+      })
+      .addCase(updateProfile.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(updateProfile.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.error = null;
+
+        if (state.data) {
+          state.data = { ...state.data, data: action.payload };
+          delete state.data.member;
+          localStorage.setItem("sweetShopAuth", JSON.stringify(state.data));
+        }
+      })
+      .addCase(updateProfile.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = String(action.payload ?? "Profile update failed.");
       });
   },
 });

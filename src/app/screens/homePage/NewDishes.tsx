@@ -1,18 +1,23 @@
+import { Link } from "react-router-dom";
 import useBasket from "../../hooks/useBasket";
-import { formatUSD } from "../../../lib/currency";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { getProductImageUrl } from "../../services/ProductService";
+import { convertLegacyPriceToUSD, formatUSD } from "../../../lib/currency";
 import { animateToBasket } from "../../../lib/animateToBasket";
-
-const products = [
-  { id: "home-1", image: "krem.zamok1.png", name: "Creamy Dream", description: "Light cream on a vanilla base", price: 15 },
-  { id: "home-2", image: "krem.zamok2.png", name: "Raspberry Delight", description: "Raspberry and smooth chocolate", price: 15 },
-  { id: "home-3", image: "krem.zamok3.png", name: "Colorful Celebration", description: "Colorful cream on a sponge base", price: 15 },
-  { id: "home-4", image: "krem.zamok4.png", name: "Chocolate World", description: "A soft chocolate cupcake", price: 15 },
-  { id: "home-5", image: "krem.zamok5.png", name: "Dragon's Tear", description: "Delicate cream and decorations", price: 15 },
-  { id: "home-6", image: "krem.zamok6.png", name: "Summer Fantasy", description: "A bright and fruity flavor", price: 15 },
-];
+import {
+  selectProducts,
+  selectProductsError,
+  selectProductsStatus,
+} from "../productsPage/selector";
+import { fetchProducts } from "../productsPage/slice";
 
 export default function NewDishes() {
   const { addItem } = useBasket();
+  const dispatch = useAppDispatch();
+  const products = useAppSelector(selectProducts);
+  const status = useAppSelector(selectProductsStatus);
+  const error = useAppSelector(selectProductsError);
+  const newestProducts = products.slice(-6);
 
   return (
     <section className="catalog home-section" id="catalog">
@@ -31,36 +36,71 @@ export default function NewDishes() {
             style you choose.
           </p>
         </div>
-        <div className="product-grid">
-          {products.map((product) => (
-            <article className="product-card" key={product.id}>
-              <img src={`/img/${product.image}`} alt={product.name} />
-              <div className="product-card__body">
-                <h3>{product.name}</h3>
-                <p>{product.description}</p>
-                <div className="product-card__footer">
-                  <strong>{formatUSD(product.price)}</strong>
-                  <button
-                    className="button button--small"
-                    onClick={(event) => {
-                      const card = event.currentTarget.closest(".product-card");
-                      animateToBasket(card?.querySelector("img") ?? null);
-                      addItem({
-                        productId: product.id,
-                        name: product.name,
-                        image: `/img/${product.image}`,
-                        price: product.price,
-                      });
-                    }}
-                    type="button"
-                  >
-                    Add to basket
-                  </button>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
+        {status === "loading" && (
+          <p className="catalog__message">Loading fresh products...</p>
+        )}
+        {status === "failed" && (
+          <div className="catalog__message catalog__message--error">
+            <span>{error}</span>
+            <button onClick={() => dispatch(fetchProducts())} type="button">
+              Try again
+            </button>
+          </div>
+        )}
+        {status === "succeeded" && newestProducts.length === 0 && (
+          <p className="catalog__message">Products will appear here soon.</p>
+        )}
+        {newestProducts.length > 0 && (
+          <div className="product-grid">
+            {newestProducts.map((product) => {
+              const image = getProductImageUrl(product.productImage);
+              const price = convertLegacyPriceToUSD(product.productPrice);
+
+              return (
+                <article className="product-card" key={product._id}>
+                  <div className="product-card__media">
+                    <img src={image} alt={product.productName} />
+                    <span>{product.productCategory}</span>
+                  </div>
+                  <div className="product-card__body">
+                    <h3>{product.productName}</h3>
+                    <p>
+                      {product.productDesc ||
+                        "A freshly made Sweet Shop dessert."}
+                    </p>
+                    <div className="product-card__footer">
+                      <strong>{formatUSD(price)}</strong>
+                      <button
+                        className="button button--small"
+                        onClick={(event) => {
+                          const card =
+                            event.currentTarget.closest(".product-card");
+                          animateToBasket(card?.querySelector("img") ?? null);
+                          addItem({
+                            productId: product._id,
+                            name: product.productName,
+                            image,
+                            price,
+                          });
+                        }}
+                        type="button"
+                      >
+                        Add to basket
+                      </button>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        )}
+        {newestProducts.length > 0 && (
+          <div className="catalog__all-products">
+            <Link className="button button--yellow" to="/products">
+              View all products
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   );

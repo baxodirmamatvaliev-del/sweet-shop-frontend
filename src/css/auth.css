@@ -133,10 +133,10 @@
   font-weight: 800;
 }
 
-.auth-field input {
+.auth-field input,
+.auth-field textarea {
   width: 100%;
-  height: 56px;
-  padding: 0 17px;
+  padding: 16px 17px;
   border: 1px solid #dfe2e7;
   border-radius: 9px;
   outline: none;
@@ -146,13 +146,108 @@
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.auth-field input:focus {
+.auth-field input {
+  height: 56px;
+  padding-block: 0;
+}
+
+.auth-field textarea {
+  min-height: 96px;
+  resize: vertical;
+}
+
+.auth-field input:focus,
+.auth-field textarea:focus {
   border-color: var(--yellow-dark);
   box-shadow: 0 0 0 4px rgba(245, 203, 76, 0.18);
 }
 
-.auth-field input::placeholder {
+.auth-field input::placeholder,
+.auth-field textarea::placeholder {
   color: #a1a8b2;
+}
+
+.auth-field span small,
+.auth-upload__label small {
+  color: #8b929d;
+  font-weight: 600;
+}
+
+.auth-upload {
+  display: grid;
+  gap: 9px;
+}
+
+.auth-upload__label {
+  color: #384354;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.auth-upload__picker {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 12px;
+  border: 1px dashed #cbd0d8;
+  border-radius: 10px;
+  background: var(--white);
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.auth-upload__picker:hover,
+.auth-upload__picker:focus-visible {
+  border-color: var(--yellow-dark);
+  background: #fffcf2;
+  outline: none;
+}
+
+.auth-upload__picker img,
+.auth-upload__placeholder {
+  width: 62px;
+  height: 62px;
+  flex: 0 0 62px;
+  border-radius: 50%;
+}
+
+.auth-upload__picker img {
+  object-fit: cover;
+}
+
+.auth-upload__placeholder {
+  display: grid;
+  place-items: center;
+  background: #f3efe4;
+  color: var(--yellow-dark);
+  font-size: 30px;
+  font-weight: 500;
+}
+
+.auth-upload__picker > span:last-child {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+}
+
+.auth-upload__picker small {
+  overflow: hidden;
+  color: var(--muted);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.auth-upload > input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 .auth-form__error {

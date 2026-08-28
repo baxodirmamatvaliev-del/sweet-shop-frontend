@@ -12,6 +12,8 @@ export default function AuthPage() {
   const dispatch = useAppDispatch();
   const authData = useAppSelector(selectAuthData);
   const isSignup = location.pathname.endsWith("/signup");
+  const redirectPath =
+    (location.state as { from?: string } | null)?.from ?? "/";
 
   useEffect(() => {
     dispatch(clearAuthError());
@@ -20,9 +22,9 @@ export default function AuthPage() {
   useEffect(() => {
     if (authData) {
       localStorage.setItem("sweetShopAuth", JSON.stringify(authData));
-      navigate("/user", { replace: true });
+      navigate(redirectPath, { replace: true });
     }
-  }, [authData, navigate]);
+  }, [authData, navigate, redirectPath]);
 
   return (
     <main className="auth-page">

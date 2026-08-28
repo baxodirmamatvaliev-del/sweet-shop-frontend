@@ -3,7 +3,6 @@ import authReducer from "./screens/authPage/slice";
 import homeReducer from "./screens/homePage/slice";
 import orderReducer from "./screens/orderPage/slice";
 import productsReducer from "./screens/productsPage/slice";
-import userReducer from "./screens/userPage/slice";
 
 export const store = configureStore({
   reducer: {
@@ -11,7 +10,6 @@ export const store = configureStore({
     home: homeReducer,
     order: orderReducer,
     products: productsReducer,
-    user: userReducer,
   },
 });
 export type RootState = ReturnType<typeof store.getState>;
