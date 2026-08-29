@@ -1,69 +1,33 @@
 import type { MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { animateToBasket } from "../../../lib/animateToBasket";
-import { formatUSD } from "../../../lib/currency";
+import { convertLegacyPriceToUSD, formatUSD } from "../../../lib/currency";
 import useBasket from "../../hooks/useBasket";
-
-const celebrationCakes = [
-  {
-    id: "birthday-cake-classic",
-    image: "/img/tort1.png",
-    name: "Chocolate Drip Cake",
-    description: "Chocolate and vanilla cream for 8–10 guests.",
-    price: 45,
-  },
-  {
-    id: "birthday-cake-colorful",
-    image: "/img/tort2.png",
-    name: "Tropical Fruit Cake",
-    description: "A fresh mango and fruit cake for a bright celebration.",
-    price: 55,
-  },
-  {
-    id: "birthday-cake-chocolate",
-    image: "/img/tort4.png",
-    name: "Carrot Cream Cake",
-    description: "A soft spiced cake finished with smooth white cream.",
-    price: 60,
-  },
-  {
-    id: "birthday-cake-premium",
-    image: "/img/tort5.png",
-    name: "Blueberry Fruit Cake",
-    description: "A bold blue celebration cake crowned with fresh fruit.",
-    price: 75,
-  },
-  {
-    id: "birthday-cake-berry",
-    image: "/img/minit.tort.png",
-    name: "Chocolate Berry Cake",
-    description: "Rich chocolate topped with berries, figs, and fresh greens.",
-    price: 65,
-  },
-  {
-    id: "birthday-cake-heart",
-    image: "/img/mini.tort6.png",
-    name: "Chocolate Heart Cake",
-    description: "A romantic heart-shaped cake with chocolate curls.",
-    price: 40,
-  },
-];
+import { useAppSelector } from "../../hooks";
+import { getProductImageUrl, type Product } from "../../services/ProductService";
+import { selectProducts } from "../productsPage/selector";
 
 export default function Statistics() {
   const { addItem } = useBasket();
   const navigate = useNavigate();
+  const products = useAppSelector(selectProducts);
+  const celebrationCakes = products
+    .filter((product) => product.productCategory.toUpperCase() === "CAKE")
+    .slice(-6);
 
   const handleOrder = (
     event: MouseEvent<HTMLButtonElement>,
-    cake: (typeof celebrationCakes)[number],
+    cake: Product,
   ) => {
     const card = event.currentTarget.closest(".celebration-card");
+    const image = getProductImageUrl(cake.productImage);
+    const price = convertLegacyPriceToUSD(cake.productPrice);
     animateToBasket(card?.querySelector("img") ?? null);
     addItem({
-      productId: cake.id,
-      name: cake.name,
-      image: cake.image,
-      price: cake.price,
+      productId: cake._id,
+      name: cake.productName,
+      image,
+      price,
     });
     navigate("/basket");
   };
@@ -83,30 +47,48 @@ export default function Statistics() {
             and decorations you would love.
           </p>
         </div>
-        <div className="celebration-grid">
-          {celebrationCakes.map((cake) => (
-            <article className="celebration-card" key={cake.id}>
-              <div className="celebration-card__image">
-                <img src={cake.image} alt={cake.name} />
-                <span>Whole cake</span>
-              </div>
-              <div className="celebration-card__body">
-                <h3>{cake.name}</h3>
-                <p>{cake.description}</p>
-                <div>
-                  <strong>From {formatUSD(cake.price)}</strong>
-                  <button
-                    onClick={(event) => handleOrder(event, cake)}
-                    type="button"
-                  >
-                    Order cake
-                  </button>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
-        <p className="celebration-grid__hint">Swipe to explore all cakes →</p>
+        {celebrationCakes.length > 0 ? (
+          <div className="celebration-grid">
+            {celebrationCakes.map((cake) => {
+              const price = convertLegacyPriceToUSD(cake.productPrice);
+
+              return (
+                <article className="celebration-card" key={cake._id}>
+                  <div className="celebration-card__image">
+                    <img
+                      src={getProductImageUrl(cake.productImage)}
+                      alt={cake.productName}
+                    />
+                    <span>Whole cake</span>
+                  </div>
+                  <div className="celebration-card__body">
+                    <h3>{cake.productName}</h3>
+                    <p>
+                      {cake.productDesc ||
+                        "A whole cake made for your celebration."}
+                    </p>
+                    <div>
+                      <strong>From {formatUSD(price)}</strong>
+                      <button
+                        onClick={(event) => handleOrder(event, cake)}
+                        type="button"
+                      >
+                        Order cake
+                      </button>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        ) : (
+          <p className="celebration-grid__empty">
+            Birthday cakes will appear here when CAKE products are added.
+          </p>
+        )}
+        {celebrationCakes.length > 0 && (
+          <p className="celebration-grid__hint">Swipe to explore all cakes →</p>
+        )}
       </div>
     </section>
   );
