@@ -15,8 +15,8 @@ export default function HomeNavbar() {
       <Link className="navbar__brand" to="/"><span>Sweet</span> Shop</Link>
       <nav className="navbar__links" aria-label="Main navigation">
         <Link to="/products">Catalog</Link>
-        <a href="#custom-order">Custom Order</a>
-        <a href="#works">Our Work</a>
+        <a href="#how-to-order">How to Order</a>
+        <a href="#works">Birthday Cakes</a>
         {!authData && <Link to="/auth/login">Login</Link>}
       </nav>
       <div className="navbar__actions">
