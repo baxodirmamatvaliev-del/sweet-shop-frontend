@@ -1,7 +1,7 @@
 .products-page {
   min-height: 100vh;
-  background: #fffaf3;
-  color: #172033;
+  background: var(--cream);
+  color: var(--ink);
 }
 
 .products-container {
@@ -11,13 +11,13 @@
 
 .products-hero {
   padding: 92px 0 78px;
-  background: linear-gradient(135deg, #06142e 0%, #0d2b5b 100%);
+  background: linear-gradient(135deg, #07101f 0%, #172337 55%, #3a2018 100%);
   color: #ffffff;
 }
 
 .products-kicker {
   margin: 0 0 14px;
-  color: #ffd34e;
+  color: var(--yellow);
   font-size: 13px;
   font-weight: 800;
   letter-spacing: 0.14em;
@@ -66,7 +66,7 @@
 }
 
 .products-search input:focus {
-  border-color: #ffd34e;
+  border-color: var(--yellow);
 }
 
 .products-catalog {
@@ -82,7 +82,7 @@
 
 .products-card {
   overflow: hidden;
-  border: 1px solid #e9e3da;
+  border: 1px solid var(--line);
   border-radius: 16px;
   background: #ffffff;
   box-shadow: 0 18px 45px rgba(30, 41, 59, 0.08);
@@ -112,8 +112,8 @@
   left: 16px;
   border-radius: 999px;
   padding: 8px 12px;
-  background: rgba(6, 20, 46, 0.86);
-  color: #ffd34e;
+  background: rgba(7, 16, 31, 0.88);
+  color: var(--yellow);
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.08em;

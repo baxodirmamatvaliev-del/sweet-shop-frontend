@@ -12,8 +12,8 @@
   min-height: 100vh;
   padding: 54px clamp(38px, 6vw, 90px);
   background:
-    radial-gradient(circle at 80% 20%, rgba(245, 203, 76, 0.18), transparent 34%),
-    linear-gradient(145deg, #06132d, #0d2550);
+    radial-gradient(circle at 80% 20%, rgba(216, 154, 87, 0.2), transparent 34%),
+    linear-gradient(145deg, #07101f, #2c1b17);
   color: var(--white);
 }
 
@@ -159,7 +159,7 @@
 .auth-field input:focus,
 .auth-field textarea:focus {
   border-color: var(--yellow-dark);
-  box-shadow: 0 0 0 4px rgba(245, 203, 76, 0.18);
+  box-shadow: 0 0 0 4px rgba(216, 154, 87, 0.18);
 }
 
 .auth-field input::placeholder,
@@ -202,7 +202,7 @@
 .auth-upload__picker:hover,
 .auth-upload__picker:focus-visible {
   border-color: var(--yellow-dark);
-  background: #fffcf2;
+  background: #f8efe7;
   outline: none;
 }
 
@@ -221,7 +221,7 @@
 .auth-upload__placeholder {
   display: grid;
   place-items: center;
-  background: #f3efe4;
+  background: #efe1d4;
   color: var(--yellow-dark);
   font-size: 30px;
   font-weight: 500;

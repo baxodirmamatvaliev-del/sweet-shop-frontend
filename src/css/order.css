@@ -1,10 +1,10 @@
 .order-page {
   min-height: 100vh;
-  background: #fffaf3;
-  color: #172033;
+  background: var(--cream);
+  color: var(--ink);
 }
 
-.order-page .navbar { color: #172033; }
+.order-page .navbar { color: var(--ink); }
 
 .order-main {
   min-height: calc(100vh - 160px);
@@ -23,7 +23,7 @@
 
 .order-kicker {
   margin: 0 0 10px;
-  color: #b8860b;
+  color: var(--yellow-dark);
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.14em;
@@ -86,8 +86,8 @@
 
 .order-form input:focus,
 .order-form textarea:focus {
-  border-color: #d4a514;
-  box-shadow: 0 0 0 3px rgba(255, 211, 78, 0.2);
+  border-color: var(--yellow-dark);
+  box-shadow: 0 0 0 3px rgba(185, 112, 55, 0.18);
 }
 
 .order-form .button { margin-top: 4px; }
@@ -108,9 +108,9 @@
 .order-payment__card {
   display: grid;
   padding: 16px;
-  border: 1px solid #d4a514;
+  border: 1px solid var(--yellow-dark);
   border-radius: 10px;
-  background: #fff9df;
+  background: #f4e7da;
 }
 
 .order-payment__card > div:first-child {

@@ -1,11 +1,11 @@
 .basket-page {
   min-height: 100vh;
-  background: #fffaf3;
-  color: #172033;
+  background: var(--cream);
+  color: var(--ink);
 }
 
 .basket-page .navbar {
-  color: #172033;
+  color: var(--ink);
 }
 
 .basket-main {
@@ -28,7 +28,7 @@
 
 .basket-kicker {
   margin: 0 0 10px;
-  color: #b8860b;
+  color: var(--yellow-dark);
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.14em;
@@ -128,7 +128,7 @@
   top: 100px;
   padding: 28px;
   border-radius: 16px;
-  background: #071a3b;
+  background: linear-gradient(145deg, #07101f, #2b1a16);
   color: #ffffff;
   box-shadow: 0 20px 50px rgba(7, 26, 59, 0.18);
 }
@@ -153,8 +153,8 @@
   margin: 20px 0;
   padding: 12px;
   border-radius: 8px;
-  background: rgba(255, 211, 78, 0.1);
-  color: #ffd34e;
+  background: rgba(216, 154, 87, 0.12);
+  color: #e2a764;
   font-size: 13px;
   line-height: 1.5;
 }

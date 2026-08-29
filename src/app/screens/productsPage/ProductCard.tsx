@@ -1,8 +1,5 @@
 import useBasket from "../../hooks/useBasket";
-import {
-  getProductImageUrl,
-  type Product,
-} from "../../services/ProductService";
+import {getProductImageUrl,type Product,} from "../../services/ProductService";
 import { convertLegacyPriceToUSD, formatUSD } from "../../../lib/currency";
 import { animateToBasket } from "../../../lib/animateToBasket";
 import type { MouseEvent } from "react";
