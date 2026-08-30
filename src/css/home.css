@@ -1353,13 +1353,49 @@
 
 /* Footer */
 .footer {
-  padding: 30px 24px;
+  position: relative;
+  overflow: hidden;
+  padding: 76px max(24px, calc((100vw - var(--page-width)) / 2)) 28px;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
-  background: var(--navy);
-  color: rgba(255, 255, 255, 0.62);
-  text-align: center;
-  font-size: 14px;
+  background: radial-gradient(circle at 12% 15%, rgba(185, 111, 61, 0.22), transparent 28%), linear-gradient(135deg, #07101f 0%, #11182a 52%, #251914 100%);
+  color: rgba(255, 255, 255, 0.68);
 }
+
+.footer__glow {
+  position: absolute;
+  right: -100px;
+  bottom: -180px;
+  width: 440px;
+  height: 440px;
+  border: 1px solid rgba(216, 154, 87, 0.13);
+  border-radius: 50%;
+  box-shadow: 0 0 100px rgba(185, 111, 61, 0.12);
+}
+
+.footer__inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.45fr 0.75fr 1fr 1fr;
+  gap: 64px;
+  padding-bottom: 58px;
+}
+
+.footer__brand { display: inline-block; margin-bottom: 20px; color: var(--white); font-size: 26px; font-weight: 850; letter-spacing: -0.04em; }
+.footer__brand span { color: var(--yellow); }
+.footer__brand-block > p { max-width: 350px; margin: 0; font-size: 14px; line-height: 1.8; }
+.footer__socials { display: flex; gap: 10px; margin-top: 28px; }
+.footer__social-icon { display: grid; width: 42px; height: 42px; border: 1px solid rgba(216, 154, 87, 0.32); border-radius: 13px; background: linear-gradient(145deg, rgba(216, 154, 87, 0.16), rgba(255, 255, 255, 0.04)); color: var(--yellow); place-items: center; }
+.footer__social-icon svg { width: 19px; height: 19px; fill: currentColor; }
+.footer__column { display: flex; align-items: flex-start; flex-direction: column; gap: 13px; font-size: 14px; }
+.footer__column h3 { margin: 4px 0 10px; color: var(--white); font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; }
+.footer__column > span { color: rgba(255, 255, 255, 0.68); }
+.footer__column p { margin: 0; line-height: 1.65; }
+.footer__hours { gap: 10px; }
+.footer__hours p { display: flex; justify-content: space-between; width: 100%; gap: 16px; }
+.footer__hours strong { color: rgba(255, 255, 255, 0.88); font-weight: 600; white-space: nowrap; }
+.footer__bottom { position: relative; z-index: 1; display: flex; justify-content: space-between; gap: 24px; padding-top: 26px; border-top: 1px solid rgba(255, 255, 255, 0.09); font-size: 12px; }
+.footer__bottom p { margin: 0; }
 
 /* Tablet */
 @media (max-width: 900px) {
@@ -1432,6 +1468,15 @@
   .quick-order__panel {
     grid-template-columns: 1fr;
     gap: 32px;
+  }
+
+  .footer__inner {
+    grid-template-columns: 1.4fr 0.8fr 1fr;
+    gap: 44px;
+  }
+
+  .footer__hours {
+    grid-column: 2 / 4;
   }
 }
 
@@ -1547,5 +1592,24 @@
 
   .quick-order__panel {
     padding: 34px 24px;
+  }
+
+  .footer {
+    padding-top: 58px;
+  }
+
+  .footer__inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 38px 28px;
+  }
+
+  .footer__brand-block,
+  .footer__hours {
+    grid-column: 1 / -1;
+  }
+
+  .footer__bottom {
+    align-items: flex-start;
+    flex-direction: column;
   }
 }
