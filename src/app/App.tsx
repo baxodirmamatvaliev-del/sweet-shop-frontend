@@ -5,6 +5,7 @@ import BasketPage from "./screens/basketPage";
 import HomePage from "./screens/homePage";
 import OrderPage from "./screens/orderPage";
 import ProductsPage from "./screens/productsPage";
+import MyOrdersPage from "./screens/myOrdersPage";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 export default function App() {
@@ -33,6 +34,14 @@ export default function App() {
           element={
             <ProtectedRoute>
               <OrderPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/my-orders"
+          element={
+            <ProtectedRoute>
+              <MyOrdersPage />
             </ProtectedRoute>
           }
         />

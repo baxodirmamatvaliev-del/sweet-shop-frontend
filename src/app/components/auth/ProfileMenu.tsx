@@ -62,6 +62,11 @@ export default function ProfileMenu() {
     setIsEditing(true);
   };
 
+  const openOrders = () => {
+    setIsOpen(false);
+    navigate("/my-orders");
+  };
+
   const handleUpdate = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const result = await dispatch(updateProfile(form));
@@ -171,6 +176,9 @@ export default function ProfileMenu() {
               <div><span>Phone</span><strong>{member?.memberPhone ?? "Not added"}</strong></div>
               <div><span>Address</span><strong>{member?.memberAddress || "Not added"}</strong></div>
               <div><span>About</span><strong>{member?.memberDesc || "Tell us about yourself"}</strong></div>
+              <button className="profile-menu__orders" type="button" onClick={openOrders}>
+                My orders
+              </button>
               <button type="button" onClick={openEditor}>
                 Edit profile
               </button>
