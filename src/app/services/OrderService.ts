@@ -79,3 +79,24 @@ export async function getMyOrders(): Promise<OrderHistory[]> {
 
   return result.data;
 }
+
+export async function cancelOrder(orderId: string): Promise<OrderHistory> {
+  if (!API_URL) {
+    throw new Error("REACT_APP_API_URL is missing in the .env file.");
+  }
+
+  const response = await fetch(`${API_URL}/orders/${orderId}/cancel`, {
+    method: "PATCH",
+    credentials: "include",
+  });
+  const result = (await response.json()) as {
+    data?: OrderHistory;
+    message?: string;
+  };
+
+  if (!response.ok || !result.data) {
+    throw new Error(result.message ?? "Unable to cancel this order.");
+  }
+
+  return result.data;
+}

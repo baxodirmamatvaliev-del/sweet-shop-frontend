@@ -3,7 +3,11 @@ import { Link } from "react-router-dom";
 import { formatUSD } from "../../../lib/currency";
 import Footer from "../../components/footer";
 import OtherNavbar from "../../components/headers/OtherNavbar";
-import { getMyOrders, type OrderHistory } from "../../services/OrderService";
+import {
+  cancelOrder,
+  getMyOrders,
+  type OrderHistory,
+} from "../../services/OrderService";
 import { getProductImageUrl } from "../../services/ProductService";
 
 const formatDate = (value: string) =>
@@ -19,6 +23,8 @@ export default function MyOrdersPage() {
   const [orders, setOrders] = useState<OrderHistory[]>([]);
   const [status, setStatus] = useState<"loading" | "success" | "error">("loading");
   const [error, setError] = useState("");
+  const [cancellingOrderId, setCancellingOrderId] = useState<string | null>(null);
+  const [cancelError, setCancelError] = useState<{ orderId: string; message: string } | null>(null);
 
   const loadOrders = async () => {
     setStatus("loading");
@@ -52,6 +58,36 @@ export default function MyOrdersPage() {
       isActive = false;
     };
   }, []);
+
+  const handleCancel = async (orderId: string) => {
+    const shouldCancel = window.confirm(
+      "Are you sure you want to cancel this order?",
+    );
+
+    if (!shouldCancel) return;
+
+    setCancellingOrderId(orderId);
+    setCancelError(null);
+
+    try {
+      const cancelledOrder = await cancelOrder(orderId);
+      setOrders((currentOrders) =>
+        currentOrders.map((order) =>
+          order._id === orderId ? cancelledOrder : order,
+        ),
+      );
+    } catch (requestError) {
+      setCancelError({
+        orderId,
+        message:
+          requestError instanceof Error
+            ? requestError.message
+            : "Unable to cancel this order.",
+      });
+    } finally {
+      setCancellingOrderId(null);
+    }
+  };
 
   return (
     <div className="my-orders-page">
@@ -127,6 +163,23 @@ export default function MyOrdersPage() {
                     <div className="my-order-card__delivery">
                       <div><small>Delivery address</small><strong>{order.address}</strong></div>
                       <p>We will deliver this order to the address above.</p>
+                      {order.orderStatus === "PENDING" && (
+                        <button
+                          className="my-order-card__cancel"
+                          disabled={cancellingOrderId === order._id}
+                          onClick={() => void handleCancel(order._id)}
+                          type="button"
+                        >
+                          {cancellingOrderId === order._id
+                            ? "Cancelling..."
+                            : "Cancel order"}
+                        </button>
+                      )}
+                      {cancelError?.orderId === order._id && (
+                        <p className="my-order-card__cancel-error" role="alert">
+                          {cancelError.message}
+                        </p>
+                      )}
                     </div>
                     <div className="my-order-card__price">
                       <h3>Payment summary</h3>
