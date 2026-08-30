@@ -1327,6 +1327,30 @@
   box-shadow: 0 0 0 4px rgba(216, 154, 87, 0.18);
 }
 
+.quick-order__form input:disabled,
+.quick-order__form button:disabled {
+  cursor: wait;
+  opacity: 0.68;
+}
+
+.quick-order__message {
+  margin: 2px 0 0;
+  padding: 11px 13px;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.quick-order__message--success {
+  background: #e8f4eb;
+  color: #27633a;
+}
+
+.quick-order__message--error {
+  background: #fff0ed;
+  color: #a33d31;
+}
+
 /* Footer */
 .footer {
   padding: 30px 24px;

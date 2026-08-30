@@ -7,6 +7,47 @@ import { useAppSelector } from "../../hooks";
 import { getProductImageUrl, type Product } from "../../services/ProductService";
 import { selectProducts } from "../productsPage/selector";
 
+const celebrationCakeDetails = [
+  {
+    name: "Chocolate Celebration Cake",
+    description: "Rich chocolate layers with smooth cream for 8–10 guests.",
+    price: 45,
+    image: "/img/tort1.png",
+  },
+  {
+    name: "Strawberry Roll Cake",
+    description: "Soft vanilla sponge rolled with fresh strawberry cream.",
+    price: 40,
+    image: "/img/tort2.png",
+  },
+  {
+    name: "Black Forest Cake",
+    description: "Chocolate sponge, light cream, and a sweet berry filling.",
+    price: 55,
+    image: "/img/tort4.png",
+  },
+  {
+    name: "Berry Cream Cake",
+    description: "Delicate cream cake finished with fresh seasonal berries.",
+    price: 60,
+    image: "/img/tort5.png",
+  },
+  {
+    name: "Chocolate Berry Cake",
+    description: "Dark chocolate topped with berries, fruit, and fresh greens.",
+    price: 65,
+    image: "/img/minit.tort.png",
+  },
+  {
+    name: "Chocolate Heart Cake",
+    description: "A romantic heart-shaped cake with rich chocolate curls.",
+    price: 50,
+    image: "/img/mini.tort6.png",
+  },
+];
+
+type CelebrationCakeDetails = (typeof celebrationCakeDetails)[number];
+
 export default function Statistics() {
   const { addItem } = useBasket();
   const navigate = useNavigate();
@@ -18,16 +59,15 @@ export default function Statistics() {
   const handleOrder = (
     event: MouseEvent<HTMLButtonElement>,
     cake: Product,
+    details: CelebrationCakeDetails,
   ) => {
     const card = event.currentTarget.closest(".celebration-card");
-    const image = getProductImageUrl(cake.productImage);
-    const price = convertLegacyPriceToUSD(cake.productPrice);
     animateToBasket(card?.querySelector("img") ?? null);
     addItem({
       productId: cake._id,
-      name: cake.productName,
-      image,
-      price,
+      name: details.name,
+      image: details.image,
+      price: details.price,
     });
     navigate("/basket");
   };
@@ -49,28 +89,32 @@ export default function Statistics() {
         </div>
         {celebrationCakes.length > 0 ? (
           <div className="celebration-grid">
-            {celebrationCakes.map((cake) => {
-              const price = convertLegacyPriceToUSD(cake.productPrice);
+            {celebrationCakes.map((cake, index) => {
+              const details = celebrationCakeDetails[index] ?? {
+                name: cake.productName,
+                description:
+                  cake.productDesc ||
+                  "A whole cake made for your celebration.",
+                price: convertLegacyPriceToUSD(cake.productPrice),
+                image: getProductImageUrl(cake.productImage),
+              };
 
               return (
                 <article className="celebration-card" key={cake._id}>
                   <div className="celebration-card__image">
                     <img
-                      src={getProductImageUrl(cake.productImage)}
-                      alt={cake.productName}
+                      src={details.image}
+                      alt={details.name}
                     />
                     <span>Whole cake</span>
                   </div>
                   <div className="celebration-card__body">
-                    <h3>{cake.productName}</h3>
-                    <p>
-                      {cake.productDesc ||
-                        "A whole cake made for your celebration."}
-                    </p>
+                    <h3>{details.name}</h3>
+                    <p>{details.description}</p>
                     <div>
-                      <strong>From {formatUSD(price)}</strong>
+                      <strong>From {formatUSD(details.price)}</strong>
                       <button
-                        onClick={(event) => handleOrder(event, cake)}
+                        onClick={(event) => handleOrder(event, cake, details)}
                         type="button"
                       >
                         Order cake
