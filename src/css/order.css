@@ -92,6 +92,79 @@
 
 .order-form .button { margin-top: 4px; }
 
+.order-form .button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.order-form__error {
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px solid #efc1ba;
+  border-radius: 8px;
+  background: #fff0ed;
+  color: #a33d31;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.order-success {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 70px 32px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 24px 60px rgba(7, 21, 47, 0.1);
+  text-align: center;
+}
+
+.order-success > span {
+  display: grid;
+  width: 68px;
+  height: 68px;
+  margin-bottom: 22px;
+  border-radius: 50%;
+  background: #e8f4eb;
+  color: #27633a;
+  font-size: 34px;
+  font-weight: 800;
+  place-items: center;
+}
+
+.order-success h2 {
+  margin: 4px 0 14px;
+  font-size: clamp(30px, 4vw, 44px);
+}
+
+.order-success > p:not(.order-kicker) {
+  max-width: 520px;
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.order-success > div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 28px 0;
+  padding: 14px 30px;
+  border-radius: 10px;
+  background: var(--cream);
+}
+
+.order-success small {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .order-payment {
   display: grid;
   gap: 12px;

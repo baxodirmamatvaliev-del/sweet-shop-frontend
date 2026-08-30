@@ -4,15 +4,22 @@ import Footer from "../../components/footer";
 import OtherNavbar from "../../components/headers/OtherNavbar";
 import useBasket from "../../hooks/useBasket";
 import { formatUSD } from "../../../lib/currency";
+import { useAppSelector } from "../../hooks";
+import { createOrder, type CreatedOrder } from "../../services/OrderService";
+import { selectAuthMember } from "../authPage/selector";
 
 const FREE_DELIVERY_LIMIT = 100;
 const DELIVERY_FEE = 5;
 
 export default function OrderPage() {
-  const { items } = useBasket();
-  const [customerName, setCustomerName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [address, setAddress] = useState("");
+  const { items, clearBasket } = useBasket();
+  const member = useAppSelector(selectAuthMember);
+  const [customerName, setCustomerName] = useState(member?.memberNick ?? "");
+  const [phone, setPhone] = useState(member?.memberPhone ?? "");
+  const [address, setAddress] = useState(member?.memberAddress ?? "");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [error, setError] = useState("");
+  const [createdOrder, setCreatedOrder] = useState<CreatedOrder | null>(null);
 
   const subtotal = items.reduce(
     (sum, item) => sum + item.price * item.quantity,
@@ -21,8 +28,32 @@ export default function OrderPage() {
   const delivery = subtotal >= FREE_DELIVERY_LIMIT ? 0 : DELIVERY_FEE;
   const total = subtotal + delivery;
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setStatus("loading");
+    setError("");
+
+    try {
+      const order = await createOrder({
+        customerName,
+        phone,
+        address,
+        items: items.map((item) => ({
+          productId: item.productId,
+          quantity: item.quantity,
+        })),
+      });
+      setCreatedOrder(order);
+      setStatus("success");
+      clearBasket();
+    } catch (requestError) {
+      setError(
+        requestError instanceof Error
+          ? requestError.message
+          : "Unable to place your order.",
+      );
+      setStatus("error");
+    }
   };
 
   return (
@@ -36,7 +67,19 @@ export default function OrderPage() {
             <p>Enter your delivery details and review your order.</p>
           </div>
 
-          {items.length === 0 ? (
+          {status === "success" && createdOrder ? (
+            <section className="order-success">
+              <span aria-hidden="true">✓</span>
+              <p className="order-kicker">ORDER CONFIRMED</p>
+              <h2>Thank you for your order!</h2>
+              <p>Your sweets are now being prepared. We will contact you shortly to confirm delivery.</p>
+              <div>
+                <small>Order number</small>
+                <strong>#{createdOrder._id.slice(-8).toUpperCase()}</strong>
+              </div>
+              <Link className="button button--yellow" to="/products">Continue shopping</Link>
+            </section>
+          ) : items.length === 0 ? (
             <section className="order-empty">
               <h2>Your basket is empty</h2>
               <p>Add a dessert before continuing to checkout.</p>
@@ -122,7 +165,10 @@ export default function OrderPage() {
                   </div>
                 </fieldset>
 
-                <button className="button button--yellow" type="submit">Place order</button>
+                {status === "error" && <p className="order-form__error" role="alert">{error}</p>}
+                <button className="button button--yellow" disabled={status === "loading"} type="submit">
+                  {status === "loading" ? "Placing order..." : "Place order"}
+                </button>
               </form>
 
               <aside className="order-summary">
