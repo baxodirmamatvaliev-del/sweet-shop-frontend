@@ -23,8 +23,12 @@ export default function ProductsPage() {
     }
   }, [dispatch, status]);
 
-  const filteredProducts = products.filter((product) =>
-    product.productName.toLowerCase().includes(search.trim().toLowerCase()),
+  const filteredProducts = products.filter(
+    (product) =>
+      product.productCategory.toUpperCase() !== "BIRTHDAY_CAKE" &&
+      product.productName
+        .toLowerCase()
+        .includes(search.trim().toLowerCase()),
   );
 
   return (

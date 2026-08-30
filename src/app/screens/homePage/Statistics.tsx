@@ -7,67 +7,30 @@ import { useAppSelector } from "../../hooks";
 import { getProductImageUrl, type Product } from "../../services/ProductService";
 import { selectProducts } from "../productsPage/selector";
 
-const celebrationCakeDetails = [
-  {
-    name: "Chocolate Celebration Cake",
-    description: "Rich chocolate layers with smooth cream for 8–10 guests.",
-    price: 45,
-    image: "/img/tort1.png",
-  },
-  {
-    name: "Strawberry Roll Cake",
-    description: "Soft vanilla sponge rolled with fresh strawberry cream.",
-    price: 40,
-    image: "/img/tort2.png",
-  },
-  {
-    name: "Black Forest Cake",
-    description: "Chocolate sponge, light cream, and a sweet berry filling.",
-    price: 55,
-    image: "/img/tort4.png",
-  },
-  {
-    name: "Berry Cream Cake",
-    description: "Delicate cream cake finished with fresh seasonal berries.",
-    price: 60,
-    image: "/img/tort5.png",
-  },
-  {
-    name: "Chocolate Berry Cake",
-    description: "Dark chocolate topped with berries, fruit, and fresh greens.",
-    price: 65,
-    image: "/img/minit.tort.png",
-  },
-  {
-    name: "Chocolate Heart Cake",
-    description: "A romantic heart-shaped cake with rich chocolate curls.",
-    price: 50,
-    image: "/img/mini.tort6.png",
-  },
-];
-
-type CelebrationCakeDetails = (typeof celebrationCakeDetails)[number];
-
 export default function Statistics() {
   const { addItem } = useBasket();
   const navigate = useNavigate();
   const products = useAppSelector(selectProducts);
   const celebrationCakes = products
-    .filter((product) => product.productCategory.toUpperCase() === "CAKE")
+    .filter(
+      (product) =>
+        product.productCategory.toUpperCase() === "BIRTHDAY_CAKE",
+    )
     .slice(-6);
 
   const handleOrder = (
     event: MouseEvent<HTMLButtonElement>,
     cake: Product,
-    details: CelebrationCakeDetails,
   ) => {
     const card = event.currentTarget.closest(".celebration-card");
+    const image = getProductImageUrl(cake.productImage);
+    const price = convertLegacyPriceToUSD(cake.productPrice);
     animateToBasket(card?.querySelector("img") ?? null);
     addItem({
       productId: cake._id,
-      name: details.name,
-      image: details.image,
-      price: details.price,
+      name: cake.productName,
+      image,
+      price,
     });
     navigate("/basket");
   };
@@ -89,32 +52,26 @@ export default function Statistics() {
         </div>
         {celebrationCakes.length > 0 ? (
           <div className="celebration-grid">
-            {celebrationCakes.map((cake, index) => {
-              const details = celebrationCakeDetails[index] ?? {
-                name: cake.productName,
-                description:
-                  cake.productDesc ||
-                  "A whole cake made for your celebration.",
-                price: convertLegacyPriceToUSD(cake.productPrice),
-                image: getProductImageUrl(cake.productImage),
-              };
+            {celebrationCakes.map((cake) => {
+              const price = convertLegacyPriceToUSD(cake.productPrice);
+              const image = getProductImageUrl(cake.productImage);
 
               return (
                 <article className="celebration-card" key={cake._id}>
                   <div className="celebration-card__image">
                     <img
-                      src={details.image}
-                      alt={details.name}
+                      src={image}
+                      alt={cake.productName}
                     />
                     <span>Whole cake</span>
                   </div>
                   <div className="celebration-card__body">
-                    <h3>{details.name}</h3>
-                    <p>{details.description}</p>
+                    <h3>{cake.productName}</h3>
+                    <p>{cake.productDesc || "A whole cake made for your celebration."}</p>
                     <div>
-                      <strong>From {formatUSD(details.price)}</strong>
+                      <strong>From {formatUSD(price)}</strong>
                       <button
-                        onClick={(event) => handleOrder(event, cake, details)}
+                        onClick={(event) => handleOrder(event, cake)}
                         type="button"
                       >
                         Order cake
@@ -127,7 +84,7 @@ export default function Statistics() {
           </div>
         ) : (
           <p className="celebration-grid__empty">
-            Birthday cakes will appear here when CAKE products are added.
+            Birthday cakes will appear here when BIRTHDAY_CAKE products are added.
           </p>
         )}
         {celebrationCakes.length > 0 && (

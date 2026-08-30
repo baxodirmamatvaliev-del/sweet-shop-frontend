@@ -17,7 +17,12 @@ export default function NewDishes() {
   const products = useAppSelector(selectProducts);
   const status = useAppSelector(selectProductsStatus);
   const error = useAppSelector(selectProductsError);
-  const newestProducts = products.slice(-6);
+  const newestProducts = products
+    .filter(
+      (product) =>
+        product.productCategory.toUpperCase() !== "BIRTHDAY_CAKE",
+    )
+    .slice(-6);
 
   return (
     <section className="catalog home-section" id="catalog">
