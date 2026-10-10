@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
 import type { PropsWithChildren } from "react";
-import {
-  BasketContext,
-  type BasketItem,
-  type BasketProduct,
-} from "./basket-context";
+import { BASKET_STORAGE_KEY } from "../../lib/config";
+import type { BasketItem, BasketProduct } from "../../lib/types/basket";
+import { BasketContext } from "./basket-context";
 
 const readSavedBasket = (): BasketItem[] => {
   try {
-    const savedBasket = localStorage.getItem("sweet-shop-basket");
+    const savedBasket = localStorage.getItem(BASKET_STORAGE_KEY);
     const parsedBasket = savedBasket
       ? (JSON.parse(savedBasket) as BasketItem[])
       : [];
@@ -30,7 +28,7 @@ export function BasketProvider({ children }: PropsWithChildren) {
   const [items, setItems] = useState<BasketItem[]>(readSavedBasket);
 
   useEffect(() => {
-    localStorage.setItem("sweet-shop-basket", JSON.stringify(items));
+    localStorage.setItem(BASKET_STORAGE_KEY, JSON.stringify(items));
   }, [items]);
 
   const addItem = (product: BasketProduct) => {

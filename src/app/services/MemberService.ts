@@ -1,50 +1,19 @@
-
-const API_URL = import.meta.env.REACT_APP_API_URL;
-
-export type LoginInput = {
-  memberNick: string;
-  memberPassword: string;
-};
-
-export type SignupInput = LoginInput & {
-  memberPhone: string;
-  memberAddress: string;
-  memberDesc?: string;
-  memberImage?: File;
-};
-
-export type UpdateMemberInput = {
-  memberNick: string;
-  memberPhone: string;
-  memberAddress?: string;
-  memberDesc?: string;
-};
-
-export type AuthMember = {
-  _id: string;
-  memberNick: string;
-  memberPhone: string;
-  memberAddress?: string;
-  memberDesc?: string;
-  memberImage?: string;
-};
-
-export type AuthResponse = {
-  accessToken?: string;
-  data?: AuthMember;
-  member?: AuthMember;
-  [key: string]: unknown;
-};
+import { requireServerApi, serverApi } from "../../lib/config";
+import type {
+  AuthMember,
+  AuthResponse,
+  LoginInput,
+  SignupInput,
+  UpdateMemberInput,
+} from "../../lib/types/member";
 
 async function sendAuthRequest(
   path: string,
   input: LoginInput,
 ): Promise<AuthResponse> {
-  if (!API_URL) {
-    throw new Error("REACT_APP_API_URL is missing in the .env file.");
-  }
+  const apiUrl = requireServerApi();
 
-  const response = await fetch(`${API_URL}${path}`, {
+  const response = await fetch(`${apiUrl}${path}`, {
     method: "POST",
     credentials: "include",
     headers: {
@@ -66,9 +35,7 @@ export const loginMember = (input: LoginInput) =>
   sendAuthRequest("/members/login", input);
 
 export async function signupMember(input: SignupInput): Promise<AuthResponse> {
-  if (!API_URL) {
-    throw new Error("REACT_APP_API_URL is missing in the .env file.");
-  }
+  const apiUrl = requireServerApi();
 
   const formData = new FormData();
   formData.append("memberNick", input.memberNick);
@@ -78,7 +45,7 @@ export async function signupMember(input: SignupInput): Promise<AuthResponse> {
   if (input.memberDesc) formData.append("memberDesc", input.memberDesc);
   if (input.memberImage) formData.append("memberImage", input.memberImage);
 
-  const response = await fetch(`${API_URL}/members/signup`, {
+  const response = await fetch(`${apiUrl}/members/signup`, {
     method: "POST",
     credentials: "include",
     body: formData,
@@ -93,11 +60,9 @@ export async function signupMember(input: SignupInput): Promise<AuthResponse> {
 }
 
 export async function logoutMember(): Promise<void> {
-  if (!API_URL) {
-    throw new Error("REACT_APP_API_URL is missing in the .env file.");
-  }
+  const apiUrl = requireServerApi();
 
-  const response = await fetch(`${API_URL}/members/logout`, {
+  const response = await fetch(`${apiUrl}/members/logout`, {
     method: "POST",
     credentials: "include",
   });
@@ -110,11 +75,9 @@ export async function logoutMember(): Promise<void> {
 export async function updateMember(
   input: UpdateMemberInput,
 ): Promise<AuthMember> {
-  if (!API_URL) {
-    throw new Error("REACT_APP_API_URL is missing in the .env file.");
-  }
+  const apiUrl = requireServerApi();
 
-  const response = await fetch(`${API_URL}/members/update`, {
+  const response = await fetch(`${apiUrl}/members/update`, {
     method: "PATCH",
     credentials: "include",
     headers: {
@@ -143,8 +106,8 @@ export function getMemberImageUrl(image?: string): string | null {
     ? cleanImage
     : `uploads/${cleanImage}`;
 
-  return `${API_URL}/${imagePath}`;
+  return `${serverApi}/${imagePath}`;
 }
 
 export const getMembers = () =>
-  fetch(`${API_URL}/members`, { credentials: "include" });
+  fetch(`${serverApi}/members`, { credentials: "include" });

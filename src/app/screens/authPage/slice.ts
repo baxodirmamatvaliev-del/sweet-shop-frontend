@@ -3,25 +3,22 @@ import {
   loginMember,
   signupMember,
   updateMember,
-  type AuthResponse,
-  type LoginInput,
-  type SignupInput,
-  type UpdateMemberInput,
 } from "../../services/MemberService";
-import type { ApiStatus } from "../../../lib/types/common";
-
-type AuthState = {
-  data: AuthResponse | null;
-  status: ApiStatus;
-  error: string | null;
-};
+import { AUTH_STORAGE_KEY } from "../../../lib/config";
+import type {
+  AuthResponse,
+  LoginInput,
+  SignupInput,
+  UpdateMemberInput,
+} from "../../../lib/types/member";
+import type { AuthState } from "../../../lib/types/screen";
 
 const getSavedAuth = (): AuthResponse | null => {
   try {
-    const savedAuth = localStorage.getItem("sweetShopAuth");
+    const savedAuth = localStorage.getItem(AUTH_STORAGE_KEY);
     return savedAuth ? (JSON.parse(savedAuth) as AuthResponse) : null;
   } catch {
-    localStorage.removeItem("sweetShopAuth");
+    localStorage.removeItem(AUTH_STORAGE_KEY);
     return null;
   }
 };
@@ -86,7 +83,7 @@ const authSlice = createSlice({
       state.data = null;
       state.status = "idle";
       state.error = null;
-      localStorage.removeItem("sweetShopAuth");
+      localStorage.removeItem(AUTH_STORAGE_KEY);
     },
   },
   extraReducers(builder) {
@@ -126,7 +123,7 @@ const authSlice = createSlice({
         if (state.data) {
           state.data = { ...state.data, data: action.payload };
           delete state.data.member;
-          localStorage.setItem("sweetShopAuth", JSON.stringify(state.data));
+          localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(state.data));
         }
       })
       .addCase(updateProfile.rejected, (state, action) => {

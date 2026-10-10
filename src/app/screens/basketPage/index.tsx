@@ -4,9 +4,7 @@ import OtherNavbar from "../../components/headers/OtherNavbar";
 import useBasket from "../../hooks/useBasket";
 import { formatUSD } from "../../../lib/currency";
 import { BasketIcon, TrashIcon } from "../../components/basket/BasketIcons";
-
-const FREE_DELIVERY_LIMIT = 100;
-const DELIVERY_FEE = 5;
+import { DELIVERY_FEE, FREE_DELIVERY_LIMIT } from "../../../lib/config";
 
 export default function BasketPage() {
   const { items, changeQuantity, removeItem, clearBasket } = useBasket();

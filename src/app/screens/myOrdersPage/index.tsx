@@ -6,9 +6,9 @@ import OtherNavbar from "../../components/headers/OtherNavbar";
 import {
   cancelOrder,
   getMyOrders,
-  type OrderHistory,
 } from "../../services/OrderService";
 import { getProductImageUrl } from "../../services/ProductService";
+import type { OrderHistory } from "../../../lib/types/order";
 
 const formatDate = (value: string) =>
   new Intl.DateTimeFormat("en", {

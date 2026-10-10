@@ -1,46 +1,14 @@
-const API_URL = import.meta.env.REACT_APP_API_URL;
-
-export type CreateOrderInput = {
-  customerName: string;
-  phone: string;
-  address: string;
-  items: Array<{
-    productId: string;
-    quantity: number;
-  }>;
-};
-
-export type CreatedOrder = {
-  _id: string;
-  total: number;
-  orderStatus: string;
-};
-
-export type OrderHistoryItem = {
-  productId: string;
-  productName: string;
-  productImage: string;
-  productPrice: number;
-  quantity: number;
-  itemTotal: number;
-};
-
-export type OrderHistory = CreatedOrder & {
-  customerName: string;
-  phone: string;
-  address: string;
-  items: OrderHistoryItem[];
-  subtotal: number;
-  deliveryFee: number;
-  createdAt: string;
-};
+import { requireServerApi } from "../../lib/config";
+import type {
+  CreatedOrder,
+  CreateOrderInput,
+  OrderHistory,
+} from "../../lib/types/order";
 
 export async function createOrder(input: CreateOrderInput): Promise<CreatedOrder> {
-  if (!API_URL) {
-    throw new Error("REACT_APP_API_URL is missing in the .env file.");
-  }
+  const apiUrl = requireServerApi();
 
-  const response = await fetch(`${API_URL}/orders/create`, {
+  const response = await fetch(`${apiUrl}/orders/create`, {
     method: "POST",
     credentials: "include",
     headers: {
@@ -61,11 +29,9 @@ export async function createOrder(input: CreateOrderInput): Promise<CreatedOrder
 }
 
 export async function getMyOrders(): Promise<OrderHistory[]> {
-  if (!API_URL) {
-    throw new Error("REACT_APP_API_URL is missing in the .env file.");
-  }
+  const apiUrl = requireServerApi();
 
-  const response = await fetch(`${API_URL}/orders/my-orders`, {
+  const response = await fetch(`${apiUrl}/orders/my-orders`, {
     credentials: "include",
   });
   const result = (await response.json()) as {
@@ -81,11 +47,9 @@ export async function getMyOrders(): Promise<OrderHistory[]> {
 }
 
 export async function cancelOrder(orderId: string): Promise<OrderHistory> {
-  if (!API_URL) {
-    throw new Error("REACT_APP_API_URL is missing in the .env file.");
-  }
+  const apiUrl = requireServerApi();
 
-  const response = await fetch(`${API_URL}/orders/${orderId}/cancel`, {
+  const response = await fetch(`${apiUrl}/orders/${orderId}/cancel`, {
     method: "PATCH",
     credentials: "include",
   });

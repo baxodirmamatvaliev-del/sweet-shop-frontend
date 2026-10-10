@@ -1,27 +1,10 @@
-const API_URL = import.meta.env.REACT_APP_API_URL;
-
-export type Product = {
-  _id: string;
-  productCategory: string;
-  productStatus: string;
-  productName: string;
-  productPrice: number;
-  productDesc?: string;
-  productImage?: string;
-  productViews?: number;
-};
-
-type ProductsResponse = {
-  data: Product[];
-  message?: string;
-};
+import { requireServerApi, serverApi } from "../../lib/config";
+import type { Product, ProductsResponse } from "../../lib/types/product";
 
 export async function getProducts(): Promise<Product[]> {
-  if (!API_URL) {
-    throw new Error("REACT_APP_API_URL is missing in the .env file.");
-  }
+  const apiUrl = requireServerApi();
 
-  const response = await fetch(`${API_URL}/products`);
+  const response = await fetch(`${apiUrl}/products`);
   const contentType = response.headers.get("content-type") ?? "";
 
   if (!contentType.includes("application/json")) {
@@ -47,5 +30,5 @@ export function getProductImageUrl(image?: string): string {
     ? cleanImage
     : `uploads/${cleanImage}`;
 
-  return `${API_URL}/${imagePath}`;
+  return `${serverApi}/${imagePath}`;
 }

@@ -4,7 +4,8 @@ import { animateToBasket } from "../../../lib/animateToBasket";
 import { convertLegacyPriceToUSD, formatUSD } from "../../../lib/currency";
 import useBasket from "../../hooks/useBasket";
 import { useAppSelector } from "../../hooks";
-import { getProductImageUrl, type Product } from "../../services/ProductService";
+import type { Product } from "../../../lib/types/product";
+import { getProductImageUrl } from "../../services/ProductService";
 import { selectProducts } from "../productsPage/selector";
 
 export default function Statistics() {

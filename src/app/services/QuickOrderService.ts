@@ -1,15 +1,10 @@
-const API_URL = import.meta.env.REACT_APP_API_URL;
-
-type QuickOrderResponse = {
-  message?: string;
-};
+import { requireServerApi } from "../../lib/config";
+import type { QuickOrderResponse } from "../../lib/types/quick-order";
 
 export async function createQuickOrder(phone: string): Promise<string> {
-  if (!API_URL) {
-    throw new Error("REACT_APP_API_URL is missing in the .env file.");
-  }
+  const apiUrl = requireServerApi();
 
-  const response = await fetch(`${API_URL}/quick-orders`, {
+  const response = await fetch(`${apiUrl}/quick-orders`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ phone }),

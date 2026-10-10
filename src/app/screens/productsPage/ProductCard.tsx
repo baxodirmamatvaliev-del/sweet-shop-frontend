@@ -1,8 +1,9 @@
-import useBasket from "../../hooks/useBasket";
-import {getProductImageUrl,type Product,} from "../../services/ProductService";
+import type { MouseEvent } from "react";
 import { convertLegacyPriceToUSD, formatUSD } from "../../../lib/currency";
 import { animateToBasket } from "../../../lib/animateToBasket";
-import type { MouseEvent } from "react";
+import useBasket from "../../hooks/useBasket";
+import type { Product } from "../../../lib/types/product";
+import { getProductImageUrl } from "../../services/ProductService";
 
 type ProductCardProps = {
   product: Product;

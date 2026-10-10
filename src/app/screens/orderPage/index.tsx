@@ -4,12 +4,11 @@ import Footer from "../../components/footer";
 import OtherNavbar from "../../components/headers/OtherNavbar";
 import useBasket from "../../hooks/useBasket";
 import { formatUSD } from "../../../lib/currency";
+import { DELIVERY_FEE, FREE_DELIVERY_LIMIT } from "../../../lib/config";
+import type { CreatedOrder } from "../../../lib/types/order";
 import { useAppSelector } from "../../hooks";
-import { createOrder, type CreatedOrder } from "../../services/OrderService";
+import { createOrder } from "../../services/OrderService";
 import { selectAuthMember } from "../authPage/selector";
-
-const FREE_DELIVERY_LIMIT = 100;
-const DELIVERY_FEE = 5;
 
 export default function OrderPage() {
   const { items, clearBasket } = useBasket();

@@ -1,13 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getProducts, type Product } from "../../services/ProductService";
-
-type ProductsStatus = "idle" | "loading" | "succeeded" | "failed";
-
-type ProductsState = {
-  items: Product[];
-  status: ProductsStatus;
-  error: string | null;
-};
+import { getProducts } from "../../services/ProductService";
+import type { ProductsState } from "../../../lib/types/screen";
 
 const initialState: ProductsState = {
   items: [],

@@ -1,4 +1,4 @@
-import type { Product } from "../../services/ProductService";
+import type { Product } from "../../../lib/types/product";
 import ProductCard from "./ProductCard";
 
 type ProductsListProps = {

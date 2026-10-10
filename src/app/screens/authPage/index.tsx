@@ -5,6 +5,7 @@ import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 import { selectAuthData } from "./selector";
 import { clearAuthError } from "./slice";
+import { AUTH_STORAGE_KEY } from "../../../lib/config";
 
 export default function AuthPage() {
   const location = useLocation();
@@ -21,7 +22,7 @@ export default function AuthPage() {
 
   useEffect(() => {
     if (authData) {
-      localStorage.setItem("sweetShopAuth", JSON.stringify(authData));
+      localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(authData));
       navigate(redirectPath, { replace: true });
     }
   }, [authData, navigate, redirectPath]);
