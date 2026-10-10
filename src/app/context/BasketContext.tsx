@@ -36,7 +36,7 @@ export function BasketProvider({ children }: PropsWithChildren) {
 
   const addItem = (product: BasketProduct): boolean => {
     if (!authData) {
-      window.alert("Obuna oling. Mahsulot xarid qilish uchun hisobingizga kiring yoki ro‘yxatdan o‘ting.");
+      window.alert("Please log in or sign up to purchase products.");
       return false;
     }
 
