@@ -80,13 +80,15 @@ export default function NewDishes() {
                         onClick={(event) => {
                           const card =
                             event.currentTarget.closest(".product-card");
-                          animateToBasket(card?.querySelector("img") ?? null);
-                          addItem({
+                          const added = addItem({
                             productId: product._id,
                             name: product.productName,
                             image,
                             price,
                           });
+                          if (!added) return;
+
+                          animateToBasket(card?.querySelector("img") ?? null);
                         }}
                         type="button"
                       >

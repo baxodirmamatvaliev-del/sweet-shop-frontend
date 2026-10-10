@@ -6,6 +6,7 @@ export async function createQuickOrder(phone: string): Promise<string> {
 
   const response = await fetch(`${apiUrl}/quick-orders`, {
     method: "POST",
+    credentials: "include",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ phone }),
   });

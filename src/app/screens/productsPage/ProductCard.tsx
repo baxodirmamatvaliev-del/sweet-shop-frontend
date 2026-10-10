@@ -15,13 +15,15 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   const handleAddToBasket = (event: MouseEvent<HTMLButtonElement>) => {
     const card = event.currentTarget.closest(".products-card");
-    animateToBasket(card?.querySelector("img") ?? null);
-    addItem({
+    const added = addItem({
       productId: product._id,
       name: product.productName,
       image: getProductImageUrl(product.productImage),
       price,
     });
+    if (!added) return;
+
+    animateToBasket(card?.querySelector("img") ?? null);
   };
 
   return (

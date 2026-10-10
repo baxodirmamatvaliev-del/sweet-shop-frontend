@@ -11,7 +11,7 @@ export interface BasketItem extends BasketProduct {
 
 export interface BasketContextValue {
   items: BasketItem[];
-  addItem: (product: BasketProduct) => void;
+  addItem: (product: BasketProduct) => boolean;
   changeQuantity: (productId: string, difference: number) => void;
   removeItem: (productId: string) => void;
   clearBasket: () => void;

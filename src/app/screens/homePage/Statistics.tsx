@@ -26,13 +26,15 @@ export default function Statistics() {
     const card = event.currentTarget.closest(".celebration-card");
     const image = getProductImageUrl(cake.productImage);
     const price = convertLegacyPriceToUSD(cake.productPrice);
-    animateToBasket(card?.querySelector("img") ?? null);
-    addItem({
+    const added = addItem({
       productId: cake._id,
       name: cake.productName,
       image,
       price,
     });
+    if (!added) return;
+
+    animateToBasket(card?.querySelector("img") ?? null);
     navigate("/basket");
   };
 
