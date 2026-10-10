@@ -1,0 +1,20 @@
+services:
+  backend:
+    build:
+      context: ../sweet-shop-backend
+      dockerfile: ../sweet-shop-frontend/deploy/backend.Dockerfile
+    env_file:
+      - ../sweet-shop-backend/.env
+    volumes:
+      - ../sweet-shop-backend/public/uploads:/app/public/uploads
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      dockerfile: deploy/frontend.Dockerfile
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
