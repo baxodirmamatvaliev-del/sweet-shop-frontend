@@ -162,7 +162,17 @@ export default function MyOrdersPage() {
                   <footer>
                     <div className="my-order-card__delivery">
                       <div><small>Delivery address</small><strong>{order.address}</strong></div>
-                      <p>We will deliver this order to the address above.</p>
+                      {order.deliveryDate ? (
+                        <>
+                          <div>
+                            <small>Delivery window</small>
+                            <strong>{order.deliveryDate} · {order.deliveryStartTime}–{order.deliveryEndTime}</strong>
+                          </div>
+                          <p>We will deliver this order during the selected window.</p>
+                        </>
+                      ) : (
+                        <p>Delivery time will be confirmed separately for this older order.</p>
+                      )}
                       {order.orderStatus === "PENDING" && (
                         <button
                           className="my-order-card__cancel"

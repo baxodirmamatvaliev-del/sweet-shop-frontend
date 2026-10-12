@@ -4,6 +4,7 @@ export interface CreateOrderInput {
   customerName: string;
   phone: string;
   address: string;
+  deliverySlotId: string;
   items: Array<{
     productId: string;
     quantity: number;
@@ -14,6 +15,9 @@ export interface CreatedOrder {
   _id: string;
   total: number;
   orderStatus: OrderStatus;
+  deliveryDate: string;
+  deliveryStartTime: string;
+  deliveryEndTime: string;
 }
 
 export interface OrderHistoryItem {
