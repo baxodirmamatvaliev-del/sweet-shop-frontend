@@ -7,6 +7,7 @@ export interface BasketProduct {
   image: string;
   price: number;
   cakeConfiguration?: CakeConfigurationInput;
+  aiDesignId?: string;
   customizationSummary?: string[];
 }
 

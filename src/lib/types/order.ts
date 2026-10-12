@@ -10,6 +10,7 @@ export interface CreateOrderInput {
     productId: string;
     quantity: number;
     cakeConfiguration?: CakeConfigurationInput;
+    aiDesignId?: string;
   }>;
 }
 
@@ -30,6 +31,11 @@ export interface OrderHistoryItem {
   quantity: number;
   itemTotal: number;
   cakeConfiguration?: CakeConfigurationSnapshot;
+  aiDesign?: {
+    designId: string;
+    prompt: string;
+    imageUrl: string;
+  };
 }
 
 export interface OrderHistory extends CreatedOrder {

@@ -151,7 +151,10 @@ export default function MyOrdersPage() {
                   <div className="my-order-card__items">
                     {order.items.map((item) => (
                       <div className="my-order-product" key={item.productId}>
-                        <img src={getProductImageUrl(item.productImage)} alt="" />
+                        <img
+                          src={getProductImageUrl(item.aiDesign?.imageUrl ?? item.productImage)}
+                          alt=""
+                        />
                         <div>
                           <strong>{item.productName}</strong>
                           {item.cakeConfiguration ? (
@@ -163,6 +166,9 @@ export default function MyOrdersPage() {
                             </span>
                           ) : (
                             <span>Sweet Shop product</span>
+                          )}
+                          {item.aiDesign && (
+                            <span>AI concept attached: {item.aiDesign.prompt}</span>
                           )}
                         </div>
                         <span className="my-order-product__quantity"><small>Quantity</small>{item.quantity}</span>

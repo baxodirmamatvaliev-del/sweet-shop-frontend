@@ -14,6 +14,9 @@ import OtherNavbar from "../../components/headers/OtherNavbar";
 import useBasket from "../../hooks/useBasket";
 import { getActiveCakeOptions } from "../../services/CakeOptionService";
 import { getProduct, getProductImageUrl } from "../../services/ProductService";
+import type { AiCakeDesign } from "../../../lib/types/ai-design";
+import { getAiDesignImageUrl } from "../../services/AiCakeDesignService";
+import AiCakeDesigner from "./AiCakeDesigner";
 
 const requiredOptionTypes: CakeOptionTypeValue[] = [
   CakeOptionType.SIZE,
@@ -98,6 +101,7 @@ export default function CakeBuilderPage() {
   const [configuration, setConfiguration] = useState<CakeConfigurationInput | null>(null);
   const [status, setStatus] = useState<"loading" | "success" | "error">("loading");
   const [error, setError] = useState("");
+  const [selectedAiDesign, setSelectedAiDesign] = useState<AiCakeDesign | null>(null);
 
   useEffect(() => {
     let active = true;
@@ -234,14 +238,18 @@ export default function CakeBuilderPage() {
       lineId: `${product._id}:custom:${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
       productId: product._id,
       name: `${product.productName} — Custom`,
-      image: getProductImageUrl(product.productImage),
+      image: selectedAiDesign
+        ? getAiDesignImageUrl(selectedAiDesign.imageUrl)
+        : getProductImageUrl(product.productImage),
       price: estimatedPrice,
       cakeConfiguration: configuration,
+      ...(selectedAiDesign ? { aiDesignId: selectedAiDesign._id } : {}),
       customizationSummary: [
         `${size?.name ?? "Custom size"} · ${configuration.layers.length} layer${configuration.layers.length === 1 ? "" : "s"}`,
         `${cream?.name ?? "Cream"} · ${frosting?.name ?? "Frosting"}`,
         extrasCount ? `${extrasCount} decoration option${extrasCount === 1 ? "" : "s"}` : "No extra decorations",
         ...(configuration.message ? [`Message: “${configuration.message}”`] : []),
+        ...(selectedAiDesign ? ["AI design concept attached"] : []),
       ],
     });
     if (added) navigate("/basket");
@@ -289,11 +297,21 @@ export default function CakeBuilderPage() {
                 <span>Customize every layer. Final pricing is verified at checkout.</span>
               </header>
 
+              <AiCakeDesigner
+                onSelect={setSelectedAiDesign}
+                selectedDesignId={selectedAiDesign?._id}
+              />
+
               <div className="builder-layout">
                 <aside className="builder-preview">
                   <div className="builder-preview__title">
                     <div><small>LIVE PREVIEW</small><strong>{product.productName}</strong></div>
-                    <img alt="" src="/img/cake-animation/cake-assembled.png" />
+                    <img
+                      alt=""
+                      src={selectedAiDesign
+                        ? getAiDesignImageUrl(selectedAiDesign.imageUrl)
+                        : "/img/cake-animation/cake-assembled.png"}
+                    />
                   </div>
                   <div className="builder-preview__stage" style={previewStyle}>
                     <div className="builder-cake">

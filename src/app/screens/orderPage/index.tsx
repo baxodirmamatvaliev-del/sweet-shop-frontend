@@ -106,6 +106,7 @@ export default function OrderPage() {
           ...(item.cakeConfiguration
             ? { cakeConfiguration: item.cakeConfiguration }
             : {}),
+          ...(item.aiDesignId ? { aiDesignId: item.aiDesignId } : {}),
         })),
       });
       setCreatedOrder(order);
