@@ -4,6 +4,7 @@
 @import "./basket.css";
 @import "./order.css";
 @import "./my-orders.css";
+@import "./order-tracking.css";
 * {
   box-sizing: border-box;
 }

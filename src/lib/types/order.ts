@@ -38,3 +38,14 @@ export interface OrderHistory extends CreatedOrder {
   deliveryFee: number;
   createdAt: string;
 }
+
+export interface OrderStatusHistory {
+  status: OrderStatus;
+  changedAt: string;
+  source: "CUSTOMER" | "ADMIN" | "SYSTEM";
+}
+
+export interface OrderTracking extends OrderHistory {
+  statusHistory: OrderStatusHistory[];
+  updatedAt: string;
+}

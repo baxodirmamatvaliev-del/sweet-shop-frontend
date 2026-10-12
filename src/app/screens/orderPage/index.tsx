@@ -145,6 +145,9 @@ export default function OrderPage() {
                   {createdOrder.deliveryDate} · {createdOrder.deliveryStartTime}–{createdOrder.deliveryEndTime}
                 </strong>
               </div>
+              <Link className="button button--yellow" to={`/orders/${createdOrder._id}/track`}>
+                Track this order
+              </Link>
               <Link className="button button--yellow" to="/products">Continue shopping</Link>
             </section>
           ) : items.length === 0 ? (

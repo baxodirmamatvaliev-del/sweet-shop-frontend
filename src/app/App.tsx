@@ -6,6 +6,7 @@ import HomePage from "./screens/homePage";
 import OrderPage from "./screens/orderPage";
 import ProductsPage from "./screens/productsPage";
 import MyOrdersPage from "./screens/myOrdersPage";
+import OrderTrackingPage from "./screens/orderTrackingPage";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 export default function App() {
@@ -42,6 +43,14 @@ export default function App() {
           element={
             <ProtectedRoute>
               <MyOrdersPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/orders/:id/track"
+          element={
+            <ProtectedRoute>
+              <OrderTrackingPage />
             </ProtectedRoute>
           }
         />

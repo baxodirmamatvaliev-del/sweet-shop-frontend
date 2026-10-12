@@ -3,6 +3,7 @@ import type {
   CreatedOrder,
   CreateOrderInput,
   OrderHistory,
+  OrderTracking,
 } from "../../lib/types/order";
 
 export async function createOrder(input: CreateOrderInput): Promise<CreatedOrder> {
@@ -63,4 +64,48 @@ export async function cancelOrder(orderId: string): Promise<OrderHistory> {
   }
 
   return result.data;
+}
+
+export async function getOrderTracking(orderId: string): Promise<OrderTracking> {
+  const apiUrl = requireServerApi();
+  const response = await fetch(`${apiUrl}/orders/${orderId}/tracking`, {
+    credentials: "include",
+  });
+  const result = (await response.json()) as {
+    data?: OrderTracking;
+    message?: string;
+  };
+
+  if (!response.ok || !result.data) {
+    throw new Error(result.message ?? "Unable to load order tracking.");
+  }
+
+  return result.data;
+}
+
+export function subscribeToOrderTracking(
+  orderId: string,
+  callbacks: {
+    onOpen: () => void;
+    onUpdate: (order: OrderTracking) => void;
+    onError: () => void;
+  },
+): () => void {
+  const apiUrl = requireServerApi();
+  const stream = new EventSource(
+    `${apiUrl}/orders/${orderId}/tracking/stream`,
+    { withCredentials: true },
+  );
+
+  stream.addEventListener("open", callbacks.onOpen);
+  stream.addEventListener("tracking", (event) => {
+    try {
+      callbacks.onUpdate(JSON.parse(event.data) as OrderTracking);
+    } catch {
+      callbacks.onError();
+    }
+  });
+  stream.addEventListener("error", callbacks.onError);
+
+  return () => stream.close();
 }

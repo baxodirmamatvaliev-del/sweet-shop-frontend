@@ -131,6 +131,17 @@
   color: #a33d31;
 }
 
+.my-order-card__track {
+  color: var(--yellow);
+  font-size: 12px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.my-order-card__track:hover {
+  text-decoration: underline;
+}
+
 .my-order-card__section-title {
   display: grid;
   grid-template-columns: 1fr 390px;

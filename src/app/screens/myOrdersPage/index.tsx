@@ -132,6 +132,9 @@ export default function MyOrdersPage() {
                       <span className={`my-order-card__status my-order-card__status--${order.orderStatus.toLowerCase()}`}>
                         {order.orderStatus}
                       </span>
+                      <Link className="my-order-card__track" to={`/orders/${order._id}/track`}>
+                        Track order
+                      </Link>
                     </div>
                   </header>
                   <div className="my-order-card__section-title">
