@@ -7,6 +7,7 @@ import OrderPage from "./screens/orderPage";
 import ProductsPage from "./screens/productsPage";
 import MyOrdersPage from "./screens/myOrdersPage";
 import OrderTrackingPage from "./screens/orderTrackingPage";
+import CakeBuilderPage from "./screens/cakeBuilderPage";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 export default function App() {
@@ -51,6 +52,14 @@ export default function App() {
           element={
             <ProtectedRoute>
               <OrderTrackingPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/cake-builder/:productId"
+          element={
+            <ProtectedRoute>
+              <CakeBuilderPage />
             </ProtectedRoute>
           }
         />

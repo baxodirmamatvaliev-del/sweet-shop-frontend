@@ -315,6 +315,20 @@
 .order-summary__item span,
 .order-summary__row { color: #697386; }
 
+.order-summary__item span {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.order-summary__item small {
+  color: var(--yellow);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
 .order-summary__row { margin-bottom: 14px; }
 
 .order-summary__total {

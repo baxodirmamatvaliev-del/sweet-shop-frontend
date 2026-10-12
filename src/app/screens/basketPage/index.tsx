@@ -40,17 +40,24 @@ export default function BasketPage() {
             <div className="basket-layout">
               <section className="basket-items" aria-label="Basket products">
                 {items.map((item) => (
-                  <article className="basket-item" key={item.productId}>
+                  <article className="basket-item" key={item.lineId}>
                     <img alt={item.name} src={item.image} />
                     <div className="basket-item__info">
                       <h2>{item.name}</h2>
+                      {item.customizationSummary && (
+                        <ul className="basket-item__customization">
+                          {item.customizationSummary.map((detail) => (
+                            <li key={detail}>{detail}</li>
+                          ))}
+                        </ul>
+                      )}
                       <strong>{formatUSD(item.price)}</strong>
-                      <button className="basket-item__remove" onClick={() => removeItem(item.productId)} type="button"><TrashIcon size={16} /> Remove</button>
+                      <button className="basket-item__remove" onClick={() => removeItem(item.lineId)} type="button"><TrashIcon size={16} /> Remove</button>
                     </div>
                     <div className="basket-quantity">
-                      <button aria-label={`Decrease ${item.name} quantity`} onClick={() => changeQuantity(item.productId, -1)} type="button">−</button>
+                      <button aria-label={`Decrease ${item.name} quantity`} onClick={() => changeQuantity(item.lineId, -1)} type="button">−</button>
                       <span>{item.quantity}</span>
-                      <button aria-label={`Increase ${item.name} quantity`} onClick={() => changeQuantity(item.productId, 1)} type="button">+</button>
+                      <button aria-label={`Increase ${item.name} quantity`} onClick={() => changeQuantity(item.lineId, 1)} type="button">+</button>
                     </div>
                     <strong className="basket-item__total">{formatUSD(item.price * item.quantity)}</strong>
                   </article>

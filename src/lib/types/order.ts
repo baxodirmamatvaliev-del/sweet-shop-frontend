@@ -1,4 +1,5 @@
 import type { OrderStatus } from "../enums/order.enum";
+import type { CakeConfigurationInput, CakeConfigurationSnapshot } from "./cake";
 
 export interface CreateOrderInput {
   customerName: string;
@@ -8,6 +9,7 @@ export interface CreateOrderInput {
   items: Array<{
     productId: string;
     quantity: number;
+    cakeConfiguration?: CakeConfigurationInput;
   }>;
 }
 
@@ -27,6 +29,7 @@ export interface OrderHistoryItem {
   productPrice: number;
   quantity: number;
   itemTotal: number;
+  cakeConfiguration?: CakeConfigurationSnapshot;
 }
 
 export interface OrderHistory extends CreatedOrder {

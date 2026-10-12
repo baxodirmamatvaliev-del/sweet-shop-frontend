@@ -13,14 +13,22 @@ const readSavedBasket = (): BasketItem[] => {
       ? (JSON.parse(savedBasket) as BasketItem[])
       : [];
 
-    return parsedBasket.filter(
-      (item) =>
+    return parsedBasket
+      .filter(
+        (item) =>
         typeof item.productId === "string" &&
         typeof item.name === "string" &&
         typeof item.image === "string" &&
         typeof item.price === "number" &&
-        typeof item.quantity === "number",
-    );
+          typeof item.quantity === "number",
+      )
+      .map((item) => ({
+        ...item,
+        lineId:
+          typeof item.lineId === "string" && item.lineId
+            ? item.lineId
+            : item.productId,
+      }));
   } catch {
     return [];
   }
@@ -41,28 +49,29 @@ export function BasketProvider({ children }: PropsWithChildren) {
     }
 
     setItems((currentItems) => {
+      const lineId = product.lineId ?? product.productId;
       const existingItem = currentItems.find(
-        (item) => item.productId === product.productId,
+        (item) => item.lineId === lineId,
       );
 
       if (existingItem) {
         return currentItems.map((item) =>
-          item.productId === product.productId
+          item.lineId === lineId
             ? { ...item, quantity: item.quantity + 1 }
             : item,
         );
       }
 
-      return [...currentItems, { ...product, quantity: 1 }];
+      return [...currentItems, { ...product, lineId, quantity: 1 }];
     });
     return true;
   };
 
-  const changeQuantity = (productId: string, difference: number) => {
+  const changeQuantity = (lineId: string, difference: number) => {
     setItems((currentItems) =>
       currentItems
         .map((item) =>
-          item.productId === productId
+          item.lineId === lineId
             ? { ...item, quantity: item.quantity + difference }
             : item,
         )
@@ -70,9 +79,9 @@ export function BasketProvider({ children }: PropsWithChildren) {
     );
   };
 
-  const removeItem = (productId: string) => {
+  const removeItem = (lineId: string) => {
     setItems((currentItems) =>
-      currentItems.filter((item) => item.productId !== productId),
+      currentItems.filter((item) => item.lineId !== lineId),
     );
   };
 

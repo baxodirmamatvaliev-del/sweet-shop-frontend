@@ -20,6 +20,21 @@ export async function getProducts(): Promise<Product[]> {
   return result.data;
 }
 
+export async function getProduct(productId: string): Promise<Product> {
+  const apiUrl = requireServerApi();
+  const response = await fetch(`${apiUrl}/products/${productId}`);
+  const result = (await response.json()) as {
+    data?: Product;
+    message?: string;
+  };
+
+  if (!response.ok || !result.data) {
+    throw new Error(result.message ?? "Cake could not be loaded.");
+  }
+
+  return result.data;
+}
+
 export function getProductImageUrl(image?: string): string {
   if (!image) return "/img/krem.zamok1.png";
   if (image.startsWith("http://") || image.startsWith("https://")) return image;

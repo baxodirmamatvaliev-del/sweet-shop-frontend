@@ -1,18 +1,24 @@
+import type { CakeConfigurationInput } from "./cake";
+
 export interface BasketProduct {
+  lineId?: string;
   productId: string;
   name: string;
   image: string;
   price: number;
+  cakeConfiguration?: CakeConfigurationInput;
+  customizationSummary?: string[];
 }
 
 export interface BasketItem extends BasketProduct {
+  lineId: string;
   quantity: number;
 }
 
 export interface BasketContextValue {
   items: BasketItem[];
   addItem: (product: BasketProduct) => boolean;
-  changeQuantity: (productId: string, difference: number) => void;
-  removeItem: (productId: string) => void;
+  changeQuantity: (lineId: string, difference: number) => void;
+  removeItem: (lineId: string) => void;
   clearBasket: () => void;
 }

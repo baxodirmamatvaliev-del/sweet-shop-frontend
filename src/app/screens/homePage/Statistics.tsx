@@ -1,15 +1,11 @@
-import type { MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import { animateToBasket } from "../../../lib/animateToBasket";
 import { convertLegacyPriceToUSD, formatUSD } from "../../../lib/currency";
-import useBasket from "../../hooks/useBasket";
 import { useAppSelector } from "../../hooks";
 import type { Product } from "../../../lib/types/product";
 import { getProductImageUrl } from "../../services/ProductService";
 import { selectProducts } from "../productsPage/selector";
 
 export default function Statistics() {
-  const { addItem } = useBasket();
   const navigate = useNavigate();
   const products = useAppSelector(selectProducts);
   const celebrationCakes = products
@@ -19,24 +15,7 @@ export default function Statistics() {
     )
     .slice(-6);
 
-  const handleOrder = (
-    event: MouseEvent<HTMLButtonElement>,
-    cake: Product,
-  ) => {
-    const card = event.currentTarget.closest(".celebration-card");
-    const image = getProductImageUrl(cake.productImage);
-    const price = convertLegacyPriceToUSD(cake.productPrice);
-    const added = addItem({
-      productId: cake._id,
-      name: cake.productName,
-      image,
-      price,
-    });
-    if (!added) return;
-
-    animateToBasket(card?.querySelector("img") ?? null);
-    navigate("/basket");
-  };
+  const handleOrder = (cake: Product) => navigate(`/cake-builder/${cake._id}`);
 
   return (
     <section className="gallery home-section" id="works">
@@ -74,10 +53,10 @@ export default function Statistics() {
                     <div>
                       <strong>From {formatUSD(price)}</strong>
                       <button
-                        onClick={(event) => handleOrder(event, cake)}
+                        onClick={() => handleOrder(cake)}
                         type="button"
                       >
-                        Order cake
+                        Customize cake
                       </button>
                     </div>
                   </div>

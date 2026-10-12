@@ -154,7 +154,16 @@ export default function MyOrdersPage() {
                         <img src={getProductImageUrl(item.productImage)} alt="" />
                         <div>
                           <strong>{item.productName}</strong>
-                          <span>Sweet Shop product</span>
+                          {item.cakeConfiguration ? (
+                            <span>
+                              {item.cakeConfiguration.size.name} · {item.cakeConfiguration.layers.length} custom layer{item.cakeConfiguration.layers.length === 1 ? "" : "s"}
+                              {item.cakeConfiguration.message
+                                ? ` · “${item.cakeConfiguration.message}”`
+                                : ""}
+                            </span>
+                          ) : (
+                            <span>Sweet Shop product</span>
+                          )}
                         </div>
                         <span className="my-order-product__quantity"><small>Quantity</small>{item.quantity}</span>
                         <span className="my-order-product__unit"><small>Unit price</small>{formatUSD(item.productPrice)}</span>
