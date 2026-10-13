@@ -1,13 +1,13 @@
 .ai-designer {
   margin-bottom: 28px;
   padding: 30px;
-  border: 1px solid rgba(216, 154, 87, 0.35);
-  border-radius: 22px;
+  border: 1px solid rgba(195, 144, 82, 0.35);
+  border-radius: var(--radius-lg);
   background:
-    radial-gradient(circle at 90% 0, rgba(216, 154, 87, 0.16), transparent 28%),
-    linear-gradient(145deg, #111d31, #261d20);
-  color: var(--white);
-  box-shadow: 0 24px 60px rgba(24, 16, 16, 0.22);
+    radial-gradient(circle at 90% 0, rgba(122, 23, 27, 0.2), transparent 28%),
+    var(--color-cocoa);
+  color: var(--color-white);
+  box-shadow: var(--shadow-md);
 }
 
 .ai-designer__intro {
@@ -20,7 +20,7 @@
 
 .ai-designer__intro p {
   margin: 0 0 7px;
-  color: var(--yellow);
+  color: var(--color-caramel);
   font-size: 10px;
   font-weight: 900;
   letter-spacing: 0.13em;
@@ -63,7 +63,7 @@
   padding: 14px;
   resize: vertical;
   border: 1px solid rgba(255, 255, 255, 0.17);
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   outline: none;
   background: rgba(255, 255, 255, 0.08);
   color: var(--white);
@@ -76,8 +76,8 @@
 }
 
 .ai-designer__form textarea:focus {
-  border-color: var(--yellow);
-  box-shadow: 0 0 0 3px rgba(216, 154, 87, 0.14);
+  border-color: var(--color-caramel);
+  box-shadow: 0 0 0 3px rgba(195, 144, 82, 0.14);
 }
 
 .ai-designer__form .button {
@@ -133,7 +133,7 @@
   gap: 12px;
   overflow-x: auto;
   padding: 3px 3px 12px;
-  scrollbar-color: rgba(216, 154, 87, 0.5) transparent;
+  scrollbar-color: rgba(195, 144, 82, 0.5) transparent;
 }
 
 .ai-design-card {
@@ -149,13 +149,13 @@
 }
 
 .ai-design-card:hover {
-  border-color: rgba(216, 154, 87, 0.68);
+  border-color: rgba(195, 144, 82, 0.68);
   transform: translateY(-2px);
 }
 
 .ai-design-card--selected {
-  border-color: var(--yellow);
-  box-shadow: 0 0 0 2px rgba(216, 154, 87, 0.2);
+  border-color: var(--color-caramel);
+  box-shadow: 0 0 0 2px rgba(195, 144, 82, 0.2);
 }
 
 .ai-design-card img {
@@ -178,7 +178,7 @@
 
 .ai-design-card strong {
   margin: 0 12px;
-  color: var(--yellow);
+  color: var(--color-caramel);
   font-size: 10px;
 }
 

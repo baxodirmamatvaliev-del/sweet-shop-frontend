@@ -1,18 +1,17 @@
 .my-orders-page {
   min-height: 100vh;
   background:
-    radial-gradient(circle at 88% 5%, rgba(216, 154, 87, 0.22), transparent 26%),
-    radial-gradient(circle at 8% 45%, rgba(185, 111, 61, 0.12), transparent 30%),
-    linear-gradient(180deg, #101a2d 0 340px, #f3e9df 340px 100%);
-  color: var(--ink);
+    radial-gradient(circle at 88% 5%, rgba(127, 146, 113, 0.16), transparent 26%),
+    var(--color-canvas);
+  color: var(--color-text);
 }
 
 .my-orders-page .navbar {
-  color: var(--white);
+  color: var(--color-text);
 }
 
 .my-orders-main {
-  padding: 76px 24px 110px;
+  padding: 130px 24px 110px;
 }
 
 .my-orders-container {
@@ -22,12 +21,12 @@
 
 .my-orders-heading {
   margin-bottom: 54px;
-  color: var(--white);
+  color: var(--color-text);
 }
 
 .my-orders-heading > p {
   margin: 0 0 14px;
-  color: var(--yellow);
+  color: var(--color-primary);
   font-size: 12px;
   font-weight: 850;
   letter-spacing: 0.12em;
@@ -40,7 +39,7 @@
 }
 
 .my-orders-heading > span {
-  color: rgba(255, 255, 255, 0.68);
+  color: var(--color-text-muted);
   font-size: 17px;
 }
 
@@ -51,10 +50,10 @@
 
 .my-order-card {
   overflow: hidden;
-  border: 1px solid rgba(124, 79, 48, 0.16);
-  border-radius: 22px;
-  background: var(--white);
-  box-shadow: 0 24px 60px rgba(35, 22, 15, 0.12);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-md);
 }
 
 .my-order-card > header {
@@ -63,8 +62,8 @@
   align-items: center;
   gap: 34px;
   padding: 25px 30px;
-  background: linear-gradient(110deg, #111d31, #2c211f);
-  color: var(--white);
+  background: var(--color-cocoa);
+  color: var(--color-white);
 }
 
 .my-order-card__number,
@@ -89,7 +88,7 @@
 }
 
 .my-order-card__number strong {
-  color: var(--yellow);
+  color: var(--color-caramel);
   font-size: 20px;
   letter-spacing: 0.03em;
 }
@@ -132,7 +131,7 @@
 }
 
 .my-order-card__track {
-  color: var(--yellow);
+  color: var(--color-caramel);
   font-size: 12px;
   font-weight: 800;
   text-decoration: none;
@@ -225,7 +224,7 @@
 }
 
 .my-order-product__total {
-  color: var(--yellow-dark);
+  color: var(--color-primary);
   font-size: 17px;
 }
 
@@ -241,16 +240,16 @@
   align-items: stretch;
   gap: 24px;
   padding: 24px 30px;
-  border-top: 1px solid #eadfd5;
-  background: #faf5ef;
+  border-top: 1px solid var(--color-border);
+  background: var(--color-canvas);
 }
 
 .my-order-card__delivery,
 .my-order-card__price {
   padding: 20px;
-  border: 1px solid #e6d9cc;
-  border-radius: 14px;
-  background: var(--white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
 }
 
 .my-order-card__delivery > div {
@@ -325,15 +324,15 @@
 }
 
 .my-order-card__price p:last-child strong {
-  color: var(--yellow-dark);
+  color: var(--color-primary);
   font-size: 22px;
 }
 
 .my-orders-state {
   padding: 70px 24px;
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  background: var(--white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
   text-align: center;
 }
 
@@ -400,11 +399,11 @@
 
 @media (max-width: 640px) {
   .my-orders-page {
-    background: linear-gradient(180deg, #101a2d 0 300px, #f3e9df 300px 100%);
+    background: var(--color-canvas);
   }
 
   .my-orders-main {
-    padding: 54px 16px 80px;
+    padding: 110px 16px 80px;
   }
 
   .my-order-card > header {

@@ -1,18 +1,18 @@
 .tracking-page {
   min-height: 100vh;
   background:
-    radial-gradient(circle at 90% 8%, rgba(216, 154, 87, 0.2), transparent 25%),
-    linear-gradient(180deg, #101a2d 0 390px, #f3e9df 390px 100%);
-  color: var(--ink);
+    radial-gradient(circle at 90% 8%, rgba(127, 146, 113, 0.16), transparent 25%),
+    var(--color-canvas);
+  color: var(--color-text);
 }
 
 .tracking-page .navbar {
-  color: var(--white);
+  color: var(--color-text);
 }
 
 .tracking-main {
   min-height: 700px;
-  padding: 50px 24px 110px;
+  padding: 120px 24px 110px;
 }
 
 .tracking-container {
@@ -23,14 +23,14 @@
 .tracking-back {
   display: inline-block;
   margin-bottom: 34px;
-  color: rgba(255, 255, 255, 0.75);
+  color: var(--color-text-muted);
   font-size: 13px;
   font-weight: 750;
   text-decoration: none;
 }
 
 .tracking-back:hover {
-  color: var(--yellow);
+  color: var(--color-primary);
 }
 
 .tracking-heading {
@@ -39,12 +39,12 @@
   justify-content: space-between;
   gap: 24px;
   margin-bottom: 38px;
-  color: var(--white);
+  color: var(--color-text);
 }
 
 .tracking-heading p {
   margin: 0 0 10px;
-  color: var(--yellow);
+  color: var(--color-primary);
   font-size: 12px;
   font-weight: 850;
   letter-spacing: 0.12em;
@@ -57,7 +57,7 @@
 }
 
 .tracking-heading div > span {
-  color: rgba(255, 255, 255, 0.62);
+  color: var(--color-text-muted);
 }
 
 .tracking-heading__actions {
@@ -68,26 +68,26 @@
 
 .tracking-heading__actions > button {
   padding: 9px 13px;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid var(--color-border);
   border-radius: 999px;
   background: transparent;
-  color: var(--white);
+  color: var(--color-text-muted);
   cursor: pointer;
   font-size: 11px;
   font-weight: 800;
 }
 
 .tracking-heading__actions > button:hover {
-  border-color: var(--yellow);
-  color: var(--yellow);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
 }
 
 .tracking-connection {
   position: relative;
   padding: 9px 15px 9px 30px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid var(--color-border);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--color-surface);
   font-size: 12px;
   font-weight: 800;
 }
@@ -112,10 +112,10 @@
 .tracking-progress,
 .tracking-card,
 .tracking-state {
-  border: 1px solid rgba(124, 79, 48, 0.16);
-  border-radius: 22px;
-  background: var(--white);
-  box-shadow: 0 24px 60px rgba(35, 22, 15, 0.12);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-md);
 }
 
 .tracking-progress {
@@ -128,8 +128,8 @@
   grid-template-columns: 1fr 1fr;
   gap: 30px;
   padding: 25px 30px;
-  border-bottom: 1px solid #eadfd5;
-  background: #faf5ef;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-canvas);
 }
 
 .tracking-progress__summary > div {
@@ -181,7 +181,7 @@
 
 .tracking-timeline__step--complete::before,
 .tracking-timeline__step--current::before {
-  background: #d99a3f;
+  background: var(--color-primary);
 }
 
 .tracking-timeline__marker {
@@ -202,13 +202,13 @@
 
 .tracking-timeline__step--complete .tracking-timeline__marker,
 .tracking-timeline__step--current .tracking-timeline__marker {
-  border-color: #d99a3f;
-  background: #d99a3f;
-  color: var(--white);
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: var(--color-white);
 }
 
 .tracking-timeline__step--current .tracking-timeline__marker {
-  box-shadow: 0 0 0 7px rgba(217, 154, 63, 0.16);
+  box-shadow: 0 0 0 7px rgba(122, 23, 27, 0.12);
 }
 
 .tracking-timeline__step strong {
@@ -307,7 +307,7 @@
 }
 
 .tracking-total strong {
-  color: var(--yellow-dark);
+  color: var(--color-primary);
   font-size: 21px;
 }
 
@@ -316,8 +316,8 @@
   flex-direction: column;
   gap: 7px;
   padding: 16px;
-  border-radius: 12px;
-  background: #faf5ef;
+  border-radius: var(--radius-md);
+  background: var(--color-canvas);
 }
 
 .tracking-history {
@@ -351,7 +351,7 @@
   width: 12px;
   height: 12px;
   margin-top: 3px;
-  border: 3px solid #d99a3f;
+  border: 3px solid var(--color-primary);
   border-radius: 50%;
   background: var(--white);
 }
@@ -363,7 +363,7 @@
 }
 
 .tracking-history li:first-child strong {
-  color: var(--yellow-dark);
+  color: var(--color-primary);
 }
 
 .tracking-state {

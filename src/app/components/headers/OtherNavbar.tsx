@@ -8,10 +8,20 @@ export default function OtherNavbar() {
   const basketCount = items.reduce((total, item) => total + item.quantity, 0);
 
   return (
-    <header className="navbar">
-      <Link className="navbar__brand" to="/"><span>Sweet</span> Shop</Link>
+    <header className="navbar navbar--internal">
+      <Link className="navbar__brand" to="/">Sweet Shop</Link>
+      <nav className="navbar__links" aria-label="Account navigation">
+        <Link to="/products">Catalog</Link>
+        <Link to="/my-orders">My Orders</Link>
+      </nav>
       <div className="navbar__actions">
-        <Link className="navbar__basket" to="/basket"><BasketIcon /> Basket <span>{basketCount}</span></Link>
+        <Link
+          aria-label={`Basket with ${basketCount} items`}
+          className="navbar__basket"
+          to="/basket"
+        >
+          <BasketIcon /> <span>{basketCount}</span>
+        </Link>
         <ProfileMenu />
       </div>
     </header>

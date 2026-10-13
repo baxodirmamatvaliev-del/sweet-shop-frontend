@@ -323,6 +323,75 @@
   box-shadow: none;
 }
 
+.navbar--internal {
+  position: absolute;
+  top: 0;
+  width: min(var(--page-width), calc(100% - 48px));
+  height: 88px;
+  color: var(--color-text);
+}
+
+.navbar--internal .navbar__brand {
+  color: var(--color-cocoa);
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+}
+
+.navbar--internal .navbar__links {
+  margin-left: auto;
+  margin-right: 24px;
+}
+
+.navbar--internal .navbar__links a {
+  color: var(--color-text-muted);
+}
+
+.navbar--internal .navbar__links a:hover {
+  color: var(--color-primary);
+}
+
+.navbar--internal .navbar__basket {
+  position: relative;
+  width: 44px;
+  min-height: 44px;
+  padding: 0;
+  justify-content: center;
+  border-color: var(--color-border);
+  border-radius: 50%;
+  background: var(--color-surface);
+  color: var(--color-cocoa) !important;
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: none;
+}
+
+.navbar--internal .navbar__basket:hover {
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
+  box-shadow: var(--shadow-sm);
+}
+
+.navbar--internal .navbar__basket span {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 20px;
+  height: 20px;
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-size: 10px;
+}
+
+.navbar--internal .profile-menu__trigger {
+  width: 44px;
+  height: 44px;
+  border-color: var(--color-border);
+  border-radius: 50%;
+  background: var(--color-cocoa);
+  box-shadow: var(--shadow-sm);
+}
+
 .navbar__mobile-menu {
   position: relative;
   display: none;
@@ -423,10 +492,10 @@
   width: 390px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 24px;
-  background: #fffaf4;
-  color: var(--ink);
-  box-shadow: 0 30px 80px rgba(3, 15, 40, 0.42);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  color: var(--color-text);
+  box-shadow: var(--shadow-lg);
   animation: profile-panel-open 0.22s ease-out;
 }
 
@@ -436,7 +505,7 @@
   right: 17px;
   width: 14px;
   height: 14px;
-  background: #24375e;
+  background: var(--color-cocoa);
   content: "";
   transform: rotate(45deg);
 }
@@ -449,8 +518,10 @@
   min-height: 126px;
   padding: 24px;
   overflow: hidden;
-  background: linear-gradient(135deg, #07101f, #2d292b 62%, #8f5434);
-  color: var(--white);
+  background:
+    radial-gradient(circle at 92% 18%, rgba(122, 23, 27, 0.3), transparent 28%),
+    var(--color-cocoa);
+  color: var(--color-white);
 }
 
 .profile-menu__cover::after {
@@ -474,8 +545,8 @@
   overflow: hidden;
   border: 3px solid rgba(255, 255, 255, 0.75);
   border-radius: 22px;
-  background: linear-gradient(135deg, var(--yellow), #f0c18d);
-  color: var(--navy);
+  background: linear-gradient(135deg, var(--color-caramel), #efd0a7);
+  color: var(--color-cocoa);
   font-size: 26px;
   font-weight: 800;
 }
@@ -529,7 +600,7 @@
 }
 
 .profile-menu__details strong {
-  color: #243047;
+  color: var(--color-text);
   font-size: 13px;
   line-height: 1.55;
 }
@@ -548,8 +619,8 @@
 .profile-menu__details > button {
   width: 100%;
   margin-top: 18px;
-  background: #f0dfcf;
-  color: #814921;
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
 }
 
 .profile-menu__form {
@@ -561,7 +632,7 @@
 .profile-menu__form label {
   display: grid;
   gap: 7px;
-  color: #4c5568;
+  color: var(--color-text-muted);
   font-size: 12px;
   font-weight: 700;
 }
@@ -575,11 +646,11 @@
 .profile-menu__form input,
 .profile-menu__form textarea {
   width: 100%;
-  border: 1px solid #ddd5ca;
+  border: 1px solid var(--color-border);
   border-radius: 10px;
   outline: 0;
-  background: var(--white);
-  color: var(--ink);
+  background: var(--color-surface);
+  color: var(--color-text);
   font: inherit;
   font-size: 13px;
 }
@@ -596,8 +667,8 @@
 
 .profile-menu__form input:focus,
 .profile-menu__form textarea:focus {
-  border-color: var(--yellow-dark);
-  box-shadow: 0 0 0 3px rgba(185, 112, 55, 0.14);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(122, 23, 27, 0.1);
 }
 
 .profile-menu__error {
@@ -618,8 +689,8 @@
 }
 
 .profile-menu__form-actions button:last-child {
-  background: #a86135;
-  color: var(--white);
+  background: var(--color-primary);
+  color: var(--color-white);
 }
 
 .profile-menu__logout {
@@ -1981,6 +2052,14 @@
 
   .navbar--home .navbar__brand {
     font-size: 24px;
+  }
+
+  .navbar--internal .navbar__brand {
+    font-size: 24px;
+  }
+
+  .profile-menu__dropdown {
+    width: min(390px, calc(100vw - 32px));
   }
 
   .navbar__login {

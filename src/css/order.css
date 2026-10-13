@@ -1,7 +1,7 @@
 .order-page {
   min-height: 100vh;
-  background: var(--cream);
-  color: var(--ink);
+  background: var(--color-canvas);
+  color: var(--color-text);
 }
 
 .order-page .navbar { color: var(--ink); }
@@ -23,7 +23,7 @@
 
 .order-kicker {
   margin: 0 0 10px;
-  color: var(--yellow-dark);
+  color: var(--color-primary);
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.14em;
@@ -37,7 +37,7 @@
 
 .order-heading > p:last-child {
   margin: 0;
-  color: #697386;
+  color: var(--color-text-muted);
   font-size: 18px;
 }
 
@@ -51,9 +51,10 @@
 .order-form,
 .order-summary,
 .order-empty {
-  border: 1px solid #e9e3da;
-  border-radius: 16px;
-  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
 }
 
 .order-form {
@@ -74,10 +75,10 @@
   width: 100%;
   margin-bottom: 22px;
   padding: 15px 16px;
-  border: 1px solid #d9dfe8;
-  border-radius: 9px;
-  background: #ffffff;
-  color: #172033;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text);
   font: inherit;
   outline: none;
 }
@@ -86,8 +87,8 @@
 
 .order-form input:focus,
 .order-form textarea:focus {
-  border-color: var(--yellow-dark);
-  box-shadow: 0 0 0 3px rgba(185, 112, 55, 0.18);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(122, 23, 27, 0.1);
 }
 
 .order-form .button { margin-top: 4px; }
@@ -115,10 +116,10 @@
   max-width: 720px;
   margin: 0 auto;
   padding: 70px 32px;
-  border: 1px solid var(--line);
-  border-radius: 24px;
-  background: #fff;
-  box-shadow: 0 24px 60px rgba(7, 21, 47, 0.1);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-md);
   text-align: center;
 }
 
@@ -154,7 +155,7 @@
   margin: 28px 0;
   padding: 14px 30px;
   border-radius: 10px;
-  background: var(--cream);
+  background: var(--color-canvas);
 }
 
 .order-success small {
@@ -169,9 +170,9 @@
   display: grid;
   margin: 0 0 22px;
   padding: 20px;
-  border: 1px solid #e4d5c6;
-  border-radius: 12px;
-  background: #fffaf4;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-canvas);
 }
 
 .order-delivery legend {
@@ -196,17 +197,17 @@
   gap: 4px;
   margin: 0;
   padding: 14px;
-  border: 1px solid #ddcfbf;
-  border-radius: 10px;
-  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
   cursor: pointer;
   transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .order-delivery__slot:hover,
 .order-delivery__slot--selected {
-  border-color: var(--yellow-dark);
-  box-shadow: 0 6px 18px rgba(185, 112, 55, 0.14);
+  border-color: var(--color-primary);
+  box-shadow: 0 6px 18px rgba(122, 23, 27, 0.12);
   transform: translateY(-1px);
 }
 
@@ -220,7 +221,7 @@
 }
 
 .order-delivery__slot strong {
-  color: #4d2d18;
+  color: var(--color-cocoa);
   font-size: 15px;
 }
 
@@ -259,9 +260,9 @@
 .order-payment__card {
   display: grid;
   padding: 16px;
-  border: 1px solid var(--yellow-dark);
-  border-radius: 10px;
-  background: #f4e7da;
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  background: var(--color-primary-soft);
 }
 
 .order-payment__card > div:first-child {
@@ -276,7 +277,7 @@
 }
 
 .order-payment__card small {
-  color: #697386;
+  color: var(--color-text-muted);
 }
 
 .order-payment__card input {
@@ -313,7 +314,7 @@
 }
 
 .order-summary__item span,
-.order-summary__row { color: #697386; }
+.order-summary__row { color: var(--color-text-muted); }
 
 .order-summary__item span {
   display: flex;
@@ -322,7 +323,7 @@
 }
 
 .order-summary__item small {
-  color: var(--yellow);
+  color: var(--color-primary);
   font-size: 9px;
   font-weight: 800;
   letter-spacing: 0.06em;
@@ -350,5 +351,5 @@
 
 .order-empty p {
   margin: 0 0 28px;
-  color: #697386;
+  color: var(--color-text-muted);
 }
