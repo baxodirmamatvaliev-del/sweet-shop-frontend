@@ -353,3 +353,37 @@
   margin: 0 0 28px;
   color: var(--color-text-muted);
 }
+
+@media (max-width: 900px) {
+  .order-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .order-main {
+    padding: 110px 0 80px;
+  }
+
+  .order-container {
+    width: min(100% - 30px, 1100px);
+  }
+
+  .order-heading h1 {
+    font-size: 42px;
+  }
+
+  .order-form,
+  .order-summary {
+    padding: 22px 20px;
+  }
+
+  .order-delivery__slots,
+  .order-payment__details {
+    grid-template-columns: 1fr;
+  }
+
+  .order-success {
+    padding: 52px 20px;
+  }
+}

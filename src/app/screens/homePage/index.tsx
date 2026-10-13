@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Footer from "../../components/footer";
 import HomeNavbar from "../../components/headers/HomeNavbar";
 import { useAppDispatch, useAppSelector } from "../../hooks";
@@ -14,11 +15,22 @@ import Statistics from "./Statistics";
 
 export default function HomePage() {
   const dispatch = useAppDispatch();
+  const { hash } = useLocation();
   const productsStatus = useAppSelector(selectProductsStatus);
 
   useEffect(() => {
     if (productsStatus === "idle") dispatch(fetchProducts());
   }, [dispatch, productsStatus]);
+
+  useEffect(() => {
+    if (!hash) return;
+
+    const frame = requestAnimationFrame(() => {
+      document.getElementById(hash.slice(1))?.scrollIntoView({ block: "start" });
+    });
+
+    return () => cancelAnimationFrame(frame);
+  }, [hash]);
 
   return (
     <div className="home-page">
