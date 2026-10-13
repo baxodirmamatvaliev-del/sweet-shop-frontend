@@ -33,7 +33,7 @@ export default function QuickOrder() {
   };
 
   return (
-    <section className="quick-order">
+    <section className="quick-order" id="quick-order">
       <div className="quick-order__panel">
         <div>
           <p className="home-kicker home-kicker--dark">CALLBACK REQUEST</p>

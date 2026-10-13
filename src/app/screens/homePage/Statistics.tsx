@@ -19,8 +19,6 @@ export default function Statistics() {
 
   return (
     <section className="gallery home-section" id="works">
-      <div className="gallery__glow gallery__glow--one" aria-hidden="true" />
-      <div className="gallery__glow gallery__glow--two" aria-hidden="true" />
       <div className="home-container">
         <div className="gallery__heading">
           <div>

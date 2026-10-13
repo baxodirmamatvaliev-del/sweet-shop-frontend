@@ -11,7 +11,9 @@ export default function ActiveUsers() {
             <li>We use only fresh ingredients</li>
             <li>Every order is packaged with care</li>
           </ul>
-          <button className="button button--navy">Contact Us</button>
+          <a className="button button--navy" href="#quick-order">
+            Contact Us
+          </a>
         </div>
         <div className="about__portrait">
           <img src="/img/qiz.png" alt="Sweet Shop pastry chef" />

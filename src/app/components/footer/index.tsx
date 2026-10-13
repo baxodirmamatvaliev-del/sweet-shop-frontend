@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Link } from "react-router-dom";
 
 type SocialIconProps = {
   label: string;
@@ -52,10 +53,10 @@ export default function Footer() {
 
         <div className="footer__column">
           <h3>Explore</h3>
-          <span>Home</span>
-          <span>Catalog</span>
-          <span>Birthday Cakes</span>
-          <span>How to Order</span>
+          <Link to="/">Home</Link>
+          <Link to="/products">Catalog</Link>
+          <Link to="/#works">Birthday Cakes</Link>
+          <Link to="/#how-to-order">How to Order</Link>
         </div>
 
         <div className="footer__column">
