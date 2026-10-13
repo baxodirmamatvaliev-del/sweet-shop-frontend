@@ -9,6 +9,7 @@ import Advertisement from "./Advertisement";
 import Events from "./Events";
 import NewDishes from "./NewDishes";
 import QuickOrder from "./QuickOrder";
+import ShopExperience from "./ShopExperience";
 import Statistics from "./Statistics";
 
 export default function HomePage() {
@@ -24,6 +25,7 @@ export default function HomePage() {
       <HomeNavbar />
       <main>
         <Advertisement />
+        <ShopExperience />
         <NewDishes />
         <Events />
         <ActiveUsers />

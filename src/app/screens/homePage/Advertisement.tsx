@@ -71,10 +71,10 @@ export default function Advertisement() {
           <div className="hero__content">
             <p className="home-kicker home-kicker--dark">HANDCRAFTED SWEETS</p>
             <h1>Sweet moments<br />for every celebration</h1>
-            <p className="hero__text">Freshly baked cakes, elegant decoration, and reliable on-time delivery.</p>
+            <p className="hero__text">Design a one-of-a-kind cake with AI inspiration, choose your delivery time, and follow every update live.</p>
             <div className="hero__action">
-              <a className="button button--yellow" href="#catalog">View Catalog</a>
-              <span>Scroll to discover<br />what is inside</span>
+              <a className="button button--yellow" href="#cake-studio">Explore Cake Studio</a>
+              <a className="button button--ghost" href="#works">Design Your Cake</a>
             </div>
           </div>
           <div

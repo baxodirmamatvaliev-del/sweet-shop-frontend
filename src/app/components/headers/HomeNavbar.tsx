@@ -14,6 +14,7 @@ export default function HomeNavbar() {
     <header className="navbar">
       <Link className="navbar__brand" to="/"><span>Sweet</span> Shop</Link>
       <nav className="navbar__links" aria-label="Main navigation">
+        <a href="#cake-studio">Cake Studio</a>
         <Link to="/products">Catalog</Link>
         <a href="#how-to-order">How to Order</a>
         <a href="#works">Birthday Cakes</a>
