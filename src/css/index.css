@@ -1,3 +1,4 @@
+@import "./design-system.css";
 @import "./home.css";
 @import "./auth.css";
 @import "./products.css";
@@ -7,18 +8,3 @@
 @import "./order-tracking.css";
 @import "./cake-builder.css";
 @import "./ai-cake-designer.css";
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family:
-    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
-}
-
-button,
-input {
-  font: inherit;
-}

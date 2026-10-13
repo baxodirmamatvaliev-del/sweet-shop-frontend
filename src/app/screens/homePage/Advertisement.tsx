@@ -1,102 +1,35 @@
-import { useEffect, useRef, useState, type CSSProperties, type KeyboardEvent } from "react";
+import { Link } from "react-router-dom";
 
 export default function Advertisement() {
-  const heroRef = useRef<HTMLElement>(null);
-  const maxProgressRef = useRef(0);
-  const progressStartRef = useRef(0);
-  const resetTimerRef = useRef<number | null>(null);
-  const [progress, setProgress] = useState(0);
-  const [isResetting, setIsResetting] = useState(false);
-
-  useEffect(() => {
-    let frame = 0;
-
-    const updateProgress = () => {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => {
-        const hero = heroRef.current;
-        if (!hero) return;
-        if (resetTimerRef.current !== null) return;
-        const nextProgress = Math.min(
-          1,
-          Math.max(
-            0,
-            (window.scrollY - progressStartRef.current) /
-              (window.innerHeight * 0.48),
-          ),
-        );
-        maxProgressRef.current = Math.max(maxProgressRef.current, nextProgress);
-        setProgress(maxProgressRef.current);
-      });
-    };
-
-    updateProgress();
-    window.addEventListener("scroll", updateProgress, { passive: true });
-    window.addEventListener("resize", updateProgress);
-    return () => {
-      cancelAnimationFrame(frame);
-      if (resetTimerRef.current !== null) {
-        window.clearTimeout(resetTimerRef.current);
-      }
-      window.removeEventListener("scroll", updateProgress);
-      window.removeEventListener("resize", updateProgress);
-    };
-  }, []);
-
-  const resetCake = () => {
-    if (resetTimerRef.current !== null) return;
-    setIsResetting(true);
-    maxProgressRef.current = 0;
-    progressStartRef.current = window.scrollY;
-    setProgress(0);
-    resetTimerRef.current = window.setTimeout(() => {
-      resetTimerRef.current = null;
-      setIsResetting(false);
-    }, 1200);
-  };
-
-  const handleCakeKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      resetCake();
-    }
-  };
-
-  const sceneStyle = { "--cake-progress": progress } as CSSProperties;
-
   return (
-    <section className="hero" id="top" ref={heroRef} style={sceneStyle}>
-      <div className="hero__sticky">
-        <div className="hero__layout home-container">
-          <div className="hero__content">
-            <p className="home-kicker home-kicker--dark">HANDCRAFTED SWEETS</p>
-            <h1>Sweet moments<br />for every celebration</h1>
-            <p className="hero__text">Design a one-of-a-kind cake with AI inspiration, choose your delivery time, and follow every update live.</p>
-            <div className="hero__action">
-              <a className="button button--yellow" href="#cake-studio">Explore Cake Studio</a>
-              <a className="button button--ghost" href="#works">Design Your Cake</a>
-            </div>
+    <section className="hero" id="top">
+      <div className="hero__layout home-container">
+        <div className="hero__content">
+          <p className="home-kicker">HANDCRAFTED DESSERTS</p>
+          <h1>
+            Made slowly.
+            <br />
+            Enjoyed fully.
+          </h1>
+          <p className="hero__text">
+            Handcrafted desserts for life&apos;s sweetest moments, baked fresh
+            with carefully selected ingredients.
+          </p>
+          <div className="hero__action">
+            <Link className="button button--yellow" to="/products">
+              Shop desserts <span aria-hidden="true">→</span>
+            </Link>
+            <a className="button button--ghost" href="#cake-studio">
+              Design your cake <span aria-hidden="true">→</span>
+            </a>
           </div>
-          <div
-            className={`hero-cake${isResetting ? " hero-cake--resetting" : ""}`}
-            aria-label="Chocolate berry cake layers. Double click to assemble."
-            onDoubleClick={resetCake}
-            onKeyDown={handleCakeKeyDown}
-            role="button"
-            tabIndex={0}
-            title="Double click to assemble the cake"
-          >
-            <img className="hero-cake__assembled" src="/img/cake-animation/cake-assembled.png" alt="Assembled chocolate berry cake" />
-            <img className="hero-cake__exploded" src="/img/cake-animation/cake-exploded.png" alt="Separated chocolate cake layers" />
-            <div className="hero-cake__labels" aria-hidden="true">
-              <span>Berries &amp; chocolate</span>
-              <span>Chocolate ganache</span>
-              <span>Chocolate sponge</span>
-              <span>Vanilla cream</span>
-              <span>Golden cake board</span>
-            </div>
-            <small className="hero-cake__hint">Double click to assemble</small>
-          </div>
+        </div>
+        <div className="hero-cake">
+          <span className="hero-cake__note">Baked fresh daily</span>
+          <img
+            src="/img/cake-animation/cake-assembled.png"
+            alt="Chocolate cake decorated with fresh berries"
+          />
         </div>
       </div>
     </section>

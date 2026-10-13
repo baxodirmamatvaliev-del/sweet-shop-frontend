@@ -1,6 +1,6 @@
 export default function ActiveUsers() {
   return (
-    <section className="about home-section">
+    <section className="about home-section" id="our-story">
       <div className="home-container about__inner">
         <div className="about__copy">
           <p className="home-kicker">YOUR PASTRY CHEF</p>
