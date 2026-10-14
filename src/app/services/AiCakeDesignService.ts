@@ -3,12 +3,11 @@ import type {
   AiCakeDesign,
   AiCakeDesignHistory,
 } from "../../lib/types/ai-design";
+import { authenticatedFetch } from "./AuthSessionService";
 
 export async function getAiCakeDesignHistory(): Promise<AiCakeDesignHistory> {
   const apiUrl = requireServerApi();
-  const response = await fetch(`${apiUrl}/ai-cake-designs`, {
-    credentials: "include",
-  });
+  const response = await authenticatedFetch(`${apiUrl}/ai-cake-designs`);
   const result = (await response.json()) as {
     data?: AiCakeDesignHistory;
     message?: string;
@@ -23,9 +22,8 @@ export async function generateAiCakeDesign(
   prompt: string,
 ): Promise<{ design: AiCakeDesign; remaining: number; dailyLimit: number }> {
   const apiUrl = requireServerApi();
-  const response = await fetch(`${apiUrl}/ai-cake-designs/generate`, {
+  const response = await authenticatedFetch(`${apiUrl}/ai-cake-designs/generate`, {
     method: "POST",
-    credentials: "include",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ prompt }),
   });

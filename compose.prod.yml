@@ -5,6 +5,8 @@ services:
       dockerfile: ../sweet-shop-frontend/deploy/backend.Dockerfile
     env_file:
       - ../sweet-shop-backend/.env
+    environment:
+      CLIENT_URLS: ${CLIENT_URLS:-http://72.60.42.107:8080}
     volumes:
       - ../sweet-shop-backend/public/uploads:/app/public/uploads
     restart: unless-stopped

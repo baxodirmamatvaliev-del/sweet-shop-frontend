@@ -22,15 +22,15 @@ REACT_APP_API_URL=http://localhost:3003
 Install dependencies and start the development server:
 
 ```bash
-npm install
-npm run dev
+yarn install
+yarn dev
 ```
 
 ## Quality checks
 
 ```bash
-npm run lint
-npm run build
+yarn lint
+yarn build
 ```
 
 ## VPS deployment
@@ -41,6 +41,11 @@ and the backend only inside its Docker network. The existing site on ports
 side by side on the VPS. The backend needs its own `.env` with `PORT=3003`,
 `MONGO_URL`, and `JWT_SECRET`; do not commit that file. Ensure the MongoDB
 server allows connections from the VPS before starting the stack.
+
+The current deployment defaults `CLIENT_URLS` to `http://72.60.42.107:8080`.
+Set `CLIENT_URLS` in the shell before running Compose when the public IP or
+domain changes. The admin panel is available at `/admin/login`; `/admin`
+redirects there automatically.
 
 Copy `deploy/backend.dockerignore` to
 `../sweet-shop-backend/.dockerignore`, then run from this directory:

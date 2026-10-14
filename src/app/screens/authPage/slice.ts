@@ -4,27 +4,20 @@ import {
   signupMember,
   updateMember,
 } from "../../services/MemberService";
-import { AUTH_STORAGE_KEY } from "../../../lib/config";
+import {
+  clearStoredAuthSession,
+  loadStoredAuthSession,
+  saveStoredAuthSession,
+} from "../../services/AuthSessionService";
 import type {
-  AuthResponse,
   LoginInput,
   SignupInput,
   UpdateMemberInput,
 } from "../../../lib/types/member";
 import type { AuthState } from "../../../lib/types/screen";
 
-const getSavedAuth = (): AuthResponse | null => {
-  try {
-    const savedAuth = localStorage.getItem(AUTH_STORAGE_KEY);
-    return savedAuth ? (JSON.parse(savedAuth) as AuthResponse) : null;
-  } catch {
-    localStorage.removeItem(AUTH_STORAGE_KEY);
-    return null;
-  }
-};
-
 const initialState: AuthState = {
-  data: getSavedAuth(),
+  data: loadStoredAuthSession(),
   status: "idle",
   error: null,
 };
@@ -83,7 +76,7 @@ const authSlice = createSlice({
       state.data = null;
       state.status = "idle";
       state.error = null;
-      localStorage.removeItem(AUTH_STORAGE_KEY);
+      clearStoredAuthSession();
     },
   },
   extraReducers(builder) {
@@ -95,6 +88,7 @@ const authSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.data = action.payload;
+        saveStoredAuthSession(action.payload);
       })
       .addCase(login.rejected, (state, action) => {
         state.status = "failed";
@@ -107,6 +101,7 @@ const authSlice = createSlice({
       .addCase(signup.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.data = action.payload;
+        saveStoredAuthSession(action.payload);
       })
       .addCase(signup.rejected, (state, action) => {
         state.status = "failed";
@@ -123,7 +118,7 @@ const authSlice = createSlice({
         if (state.data) {
           state.data = { ...state.data, data: action.payload };
           delete state.data.member;
-          localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(state.data));
+          saveStoredAuthSession(state.data);
         }
       })
       .addCase(updateProfile.rejected, (state, action) => {

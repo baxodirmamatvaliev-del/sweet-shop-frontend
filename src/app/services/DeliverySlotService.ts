@@ -1,13 +1,13 @@
 import { requireServerApi } from "../../lib/config";
 import type { DeliverySlot } from "../../lib/types/delivery";
+import { authenticatedFetch } from "./AuthSessionService";
 
 export async function getAvailableDeliverySlots(
   date: string,
 ): Promise<DeliverySlot[]> {
   const apiUrl = requireServerApi();
-  const response = await fetch(
+  const response = await authenticatedFetch(
     `${apiUrl}/delivery-slots?date=${encodeURIComponent(date)}`,
-    { credentials: "include" },
   );
   const result = (await response.json()) as {
     data?: DeliverySlot[];

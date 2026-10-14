@@ -1,12 +1,12 @@
 import { requireServerApi } from "../../lib/config";
 import type { QuickOrderResponse } from "../../lib/types/quick-order";
+import { authenticatedFetch } from "./AuthSessionService";
 
 export async function createQuickOrder(phone: string): Promise<string> {
   const apiUrl = requireServerApi();
 
-  const response = await fetch(`${apiUrl}/quick-orders`, {
+  const response = await authenticatedFetch(`${apiUrl}/quick-orders`, {
     method: "POST",
-    credentials: "include",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ phone }),
   });

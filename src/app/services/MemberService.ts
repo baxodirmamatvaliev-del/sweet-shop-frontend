@@ -6,6 +6,7 @@ import type {
   SignupInput,
   UpdateMemberInput,
 } from "../../lib/types/member";
+import { authenticatedFetch } from "./AuthSessionService";
 
 async function sendAuthRequest(
   path: string,
@@ -77,9 +78,8 @@ export async function updateMember(
 ): Promise<AuthMember> {
   const apiUrl = requireServerApi();
 
-  const response = await fetch(`${apiUrl}/members/update`, {
+  const response = await authenticatedFetch(`${apiUrl}/members/update`, {
     method: "PATCH",
-    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
@@ -108,6 +108,3 @@ export function getMemberImageUrl(image?: string): string | null {
 
   return `${serverApi}/${imagePath}`;
 }
-
-export const getMembers = () =>
-  fetch(`${serverApi}/members`, { credentials: "include" });

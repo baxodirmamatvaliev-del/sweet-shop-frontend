@@ -5,13 +5,15 @@ import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 import { selectAuthData } from "./selector";
 import { clearAuthError } from "./slice";
-import { AUTH_STORAGE_KEY } from "../../../lib/config";
+import { AUTH_SESSION_NOTICE_KEY } from "../../services/AuthSessionService";
 
 export default function AuthPage() {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const authData = useAppSelector(selectAuthData);
+  const sessionExpired =
+    sessionStorage.getItem(AUTH_SESSION_NOTICE_KEY) === "expired";
   const isSignup = location.pathname.endsWith("/signup");
   const redirectPath =
     (location.state as { from?: string } | null)?.from ?? "/";
@@ -22,7 +24,6 @@ export default function AuthPage() {
 
   useEffect(() => {
     if (authData) {
-      localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(authData));
       navigate(redirectPath, { replace: true });
     }
   }, [authData, navigate, redirectPath]);
@@ -65,6 +66,11 @@ export default function AuthPage() {
                 : "Enter your nickname and password."}
             </p>
           </div>
+          {sessionExpired && !isSignup && (
+            <p className="auth-form__error" role="alert">
+              Your session has expired. Please log in again.
+            </p>
+          )}
           {isSignup ? <SignupForm /> : <LoginForm />}
         </div>
       </section>

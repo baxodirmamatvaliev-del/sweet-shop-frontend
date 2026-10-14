@@ -5,13 +5,13 @@ import type {
   OrderHistory,
   OrderTracking,
 } from "../../lib/types/order";
+import { authenticatedFetch } from "./AuthSessionService";
 
 export async function createOrder(input: CreateOrderInput): Promise<CreatedOrder> {
   const apiUrl = requireServerApi();
 
-  const response = await fetch(`${apiUrl}/orders/create`, {
+  const response = await authenticatedFetch(`${apiUrl}/orders/create`, {
     method: "POST",
-    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
@@ -32,9 +32,7 @@ export async function createOrder(input: CreateOrderInput): Promise<CreatedOrder
 export async function getMyOrders(): Promise<OrderHistory[]> {
   const apiUrl = requireServerApi();
 
-  const response = await fetch(`${apiUrl}/orders/my-orders`, {
-    credentials: "include",
-  });
+  const response = await authenticatedFetch(`${apiUrl}/orders/my-orders`);
   const result = (await response.json()) as {
     data?: OrderHistory[];
     message?: string;
@@ -50,9 +48,8 @@ export async function getMyOrders(): Promise<OrderHistory[]> {
 export async function cancelOrder(orderId: string): Promise<OrderHistory> {
   const apiUrl = requireServerApi();
 
-  const response = await fetch(`${apiUrl}/orders/${orderId}/cancel`, {
+  const response = await authenticatedFetch(`${apiUrl}/orders/${orderId}/cancel`, {
     method: "PATCH",
-    credentials: "include",
   });
   const result = (await response.json()) as {
     data?: OrderHistory;
@@ -68,9 +65,9 @@ export async function cancelOrder(orderId: string): Promise<OrderHistory> {
 
 export async function getOrderTracking(orderId: string): Promise<OrderTracking> {
   const apiUrl = requireServerApi();
-  const response = await fetch(`${apiUrl}/orders/${orderId}/tracking`, {
-    credentials: "include",
-  });
+  const response = await authenticatedFetch(
+    `${apiUrl}/orders/${orderId}/tracking`,
+  );
   const result = (await response.json()) as {
     data?: OrderTracking;
     message?: string;
