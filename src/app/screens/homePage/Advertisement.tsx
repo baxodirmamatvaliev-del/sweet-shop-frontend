@@ -1,37 +1,21 @@
-import { Link } from "react-router-dom";
-
 export default function Advertisement() {
   return (
-    <section className="hero" id="top">
-      <div className="hero__layout home-container">
-        <div className="hero__content">
-          <p className="home-kicker">HANDCRAFTED DESSERTS</p>
-          <h1>
-            Made slowly.
-            <br />
-            Enjoyed fully.
-          </h1>
-          <p className="hero__text">
-            Handcrafted desserts for life&apos;s sweetest moments, baked fresh
-            with carefully selected ingredients.
-          </p>
-          <div className="hero__action">
-            <Link className="button button--yellow" to="/products">
-              Shop desserts <span aria-hidden="true">→</span>
-            </Link>
-            <a className="button button--ghost" href="#cake-studio">
-              Design your cake <span aria-hidden="true">→</span>
-            </a>
-          </div>
-        </div>
-        <div className="hero-cake">
-          <span className="hero-cake__note">Baked fresh daily</span>
-          <img
-            src="/img/cake-animation/cake-assembled.png"
-            alt="Chocolate cake decorated with fresh berries"
-          />
-        </div>
-      </div>
+    <section className="hero" id="top" aria-labelledby="hero-title">
+      <h1 className="hero__title" id="hero-title">Mega Coffee — a latte for today</h1>
+      <img
+        className="hero__image"
+        src="/img/mega-coffee/latte-banner.webp"
+        srcSet="/img/mega-coffee/latte-banner-small.webp 960w, /img/mega-coffee/latte-banner.webp 1672w"
+        sizes="100vw"
+        width="1672"
+        height="941"
+        alt="Two iced lattes in warm golden sunlight with Korean lettering: a latte for today"
+        fetchPriority="high"
+      />
+      <a className="hero__scroll" href="#catalog">
+        <span aria-hidden="true">↓</span>
+        Explore the menu
+      </a>
     </section>
   );
 }

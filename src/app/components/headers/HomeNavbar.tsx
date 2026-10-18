@@ -8,10 +8,9 @@ import ProfileMenu from "../auth/ProfileMenu";
 function NavigationLinks({ isAuthenticated }: { isAuthenticated: boolean }) {
   return (
     <>
-      <Link to="/products">Catalog</Link>
-      <a href="#cake-studio">Cake Studio</a>
+      <Link to="/products">Menu</Link>
       <a href="#our-story">Our Story</a>
-      <a href="#how-to-order">Delivery</a>
+      <a href="#how-to-order">How to order</a>
       {isAuthenticated && <Link to="/my-orders">My Orders</Link>}
     </>
   );
@@ -25,12 +24,14 @@ export default function HomeNavbar() {
 
   return (
     <div className="home-header">
-      <p className="home-header__announcement">
-        Handcrafted desserts for life&apos;s sweetest moments.
-      </p>
       <header className="navbar navbar--home">
         <Link className="navbar__brand" to="/">
-          Sweet Shop
+          <img
+            src="/img/mega-coffee/logo.png"
+            alt="Mega MGC Coffee — Big size, 2 shot"
+            width="380"
+            height="97"
+          />
         </Link>
         <nav className="navbar__links" aria-label="Main navigation">
           <NavigationLinks isAuthenticated={isAuthenticated} />
@@ -57,6 +58,7 @@ export default function HomeNavbar() {
             </summary>
             <nav aria-label="Mobile navigation">
               <NavigationLinks isAuthenticated={isAuthenticated} />
+              {!isAuthenticated && <Link to="/auth/login">Sign in</Link>}
             </nav>
           </details>
         </div>
