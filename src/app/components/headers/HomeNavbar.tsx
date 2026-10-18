@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import useBasket from "../../hooks/useBasket";
 import { BasketIcon } from "../basket/BasketIcons";
@@ -17,13 +18,35 @@ function NavigationLinks({ isAuthenticated }: { isAuthenticated: boolean }) {
 }
 
 export default function HomeNavbar() {
+  const headerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let frame: number | null = null;
+
+    const updateBackground = () => {
+      const progress = Math.min(Math.max(window.scrollY / 180, 0), 1);
+      headerRef.current?.style.setProperty("--header-progress", String(progress));
+      frame = null;
+    };
+    const onScroll = () => {
+      if (frame === null) frame = window.requestAnimationFrame(updateBackground);
+    };
+
+    updateBackground();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (frame !== null) window.cancelAnimationFrame(frame);
+    };
+  }, []);
+
   const { items } = useBasket();
   const authData = useAppSelector(selectAuthData);
   const basketCount = items.reduce((total, item) => total + item.quantity, 0);
   const isAuthenticated = Boolean(authData);
 
   return (
-    <div className="home-header">
+    <div className="home-header" ref={headerRef}>
       <header className="navbar navbar--home">
         <Link className="navbar__brand" to="/">
           <img
@@ -38,9 +61,10 @@ export default function HomeNavbar() {
         </nav>
         <div className="navbar__actions">
           {!isAuthenticated && (
-            <Link className="navbar__login" to="/auth/login">
-              Sign in
-            </Link>
+            <>
+              <Link className="navbar__login" to="/auth/login">Sign in</Link>
+              <Link className="navbar__signup" to="/auth/signup">Sign up</Link>
+            </>
           )}
           <Link
             aria-label={`Basket with ${basketCount} items`}
@@ -52,13 +76,17 @@ export default function HomeNavbar() {
           {isAuthenticated && <ProfileMenu />}
           <details className="navbar__mobile-menu">
             <summary aria-label="Open navigation menu">
-              <span />
-              <span />
-              <span />
+              <span aria-hidden="true">☰</span>
+              Menu
             </summary>
             <nav aria-label="Mobile navigation">
               <NavigationLinks isAuthenticated={isAuthenticated} />
-              {!isAuthenticated && <Link to="/auth/login">Sign in</Link>}
+              {!isAuthenticated && (
+                <>
+                  <Link to="/auth/login">Sign in</Link>
+                  <Link to="/auth/signup">Sign up</Link>
+                </>
+              )}
             </nav>
           </details>
         </div>

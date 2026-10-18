@@ -1,9 +1,6 @@
-export const formatUSD = (price: number) =>
-  new Intl.NumberFormat("en-US", {
+export const formatKRW = (price: number) =>
+  new Intl.NumberFormat("ko-KR", {
     style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 2,
+    currency: "KRW",
+    maximumFractionDigits: 0,
   }).format(price);
-
-export const convertLegacyPriceToUSD = (price: number) =>
-  price >= 1000 ? price / 1000 : price;

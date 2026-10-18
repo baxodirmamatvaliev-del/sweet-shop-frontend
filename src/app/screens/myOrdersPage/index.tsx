@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { formatUSD } from "../../../lib/currency";
+import { formatKRW } from "../../../lib/currency";
 import Footer from "../../components/footer";
 import OtherNavbar from "../../components/headers/OtherNavbar";
 import {
@@ -172,8 +172,8 @@ export default function MyOrdersPage() {
                           )}
                         </div>
                         <span className="my-order-product__quantity"><small>Quantity</small>{item.quantity}</span>
-                        <span className="my-order-product__unit"><small>Unit price</small>{formatUSD(item.productPrice)}</span>
-                        <strong className="my-order-product__total"><small>Item total</small>{formatUSD(item.itemTotal)}</strong>
+                        <span className="my-order-product__unit"><small>Unit price</small>{formatKRW(item.productPrice)}</span>
+                        <strong className="my-order-product__total"><small>Item total</small>{formatKRW(item.itemTotal)}</strong>
                       </div>
                     ))}
                   </div>
@@ -211,9 +211,9 @@ export default function MyOrdersPage() {
                     </div>
                     <div className="my-order-card__price">
                       <h3>Payment summary</h3>
-                      <p><span>Subtotal</span><strong>{formatUSD(order.subtotal)}</strong></p>
-                      <p><span>Delivery</span><strong>{order.deliveryFee === 0 ? "Free" : formatUSD(order.deliveryFee)}</strong></p>
-                      <p><span>Order total</span><strong>{formatUSD(order.total)}</strong></p>
+                      <p><span>Subtotal</span><strong>{formatKRW(order.subtotal)}</strong></p>
+                      <p><span>Delivery</span><strong>{order.deliveryFee === 0 ? "Free" : formatKRW(order.deliveryFee)}</strong></p>
+                      <p><span>Order total</span><strong>{formatKRW(order.total)}</strong></p>
                     </div>
                   </footer>
                 </article>

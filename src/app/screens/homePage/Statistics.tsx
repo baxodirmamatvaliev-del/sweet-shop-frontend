@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { convertLegacyPriceToUSD, formatUSD } from "../../../lib/currency";
+import { formatKRW } from "../../../lib/currency";
 import { useAppSelector } from "../../hooks";
 import type { Product } from "../../../lib/types/product";
 import { getProductImageUrl } from "../../services/ProductService";
@@ -33,7 +33,7 @@ export default function Statistics() {
         {celebrationCakes.length > 0 ? (
           <div className="celebration-grid">
             {celebrationCakes.map((cake) => {
-              const price = convertLegacyPriceToUSD(cake.productPrice);
+              const price = cake.productPrice;
               const image = getProductImageUrl(cake.productImage);
 
               return (
@@ -49,7 +49,7 @@ export default function Statistics() {
                     <h3>{cake.productName}</h3>
                     <p>{cake.productDesc || "A whole cake made for your celebration."}</p>
                     <div>
-                      <strong>From {formatUSD(price)}</strong>
+                      <strong>From {formatKRW(price)}</strong>
                       <button
                         onClick={() => handleOrder(cake)}
                         type="button"

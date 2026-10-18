@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { convertLegacyPriceToUSD, formatUSD } from "../../../lib/currency";
+import { formatKRW } from "../../../lib/currency";
 import {
   CakeOptionType,
   type CakeConfigurationInput,
@@ -82,7 +82,7 @@ function OptionPicker({
                 <strong>{option.name}</strong>
                 {option.description && <small>{option.description}</small>}
               </span>
-              <em>{option.priceModifier ? `+${formatUSD(option.priceModifier)}` : "Included"}</em>
+              <em>{option.priceModifier ? `+${formatKRW(option.priceModifier)}` : "Included"}</em>
               {multiple && <span className="builder-option__check">{selected ? "✓" : "+"}</span>}
             </button>
           );
@@ -171,7 +171,7 @@ export default function CakeBuilderPage() {
     ];
     return selectedIds.reduce(
       (total, optionId) => total + (optionById.get(optionId)?.priceModifier ?? 0),
-      convertLegacyPriceToUSD(product.productPrice),
+      product.productPrice,
     );
   }, [configuration, optionById, product]);
 
@@ -347,7 +347,7 @@ export default function CakeBuilderPage() {
                   </div>
                   <div className="builder-preview__price">
                     <span>Estimated total<small>Backend verifies the final price</small></span>
-                    <strong>{formatUSD(estimatedPrice)}</strong>
+                    <strong>{formatKRW(estimatedPrice)}</strong>
                   </div>
                   <button className="button button--yellow" onClick={addCustomizedCake} type="button">Add custom cake to basket</button>
                 </aside>

@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import MenuFilters from "../../components/MenuFilters";
+import { getMenuCategory, type MenuCategory } from "../../../lib/menu";
 import Footer from "../../components/footer";
 import OtherNavbar from "../../components/headers/OtherNavbar";
 import { useAppDispatch, useAppSelector } from "../../hooks";
@@ -15,6 +17,7 @@ export default function ProductsPage() {
   const products = useAppSelector(selectProducts);
   const status = useAppSelector(selectProductsStatus);
   const error = useAppSelector(selectProductsError);
+  const [category, setCategory] = useState<MenuCategory>("All");
   const [search, setSearch] = useState("");
 
   useEffect(() => {
@@ -26,6 +29,7 @@ export default function ProductsPage() {
   const filteredProducts = products.filter(
     (product) =>
       product.productCategory.toUpperCase() !== "BIRTHDAY_CAKE" &&
+      (category === "All" || getMenuCategory(product.productCategory) === category) &&
       product.productName
         .toLowerCase()
         .includes(search.trim().toLowerCase()),
@@ -37,11 +41,10 @@ export default function ProductsPage() {
       <main>
         <section className="products-hero">
           <div className="products-container">
-            <p className="products-kicker">SWEET SHOP CATALOG</p>
-            <h1>Find a sweet for every celebration</h1>
+            <p className="products-kicker">MEGA COFFEE MENU</p>
+            <h1>Find your next favorite</h1>
             <p className="products-hero__text">
-              Freshly prepared desserts, carefully decorated for your special
-              moments.
+              Coffee breaks, refreshing sips, and a little something sweet.
             </p>
             <label className="products-search">
               <span>Search products</span>
@@ -57,6 +60,7 @@ export default function ProductsPage() {
 
         <section className="products-catalog">
           <div className="products-container">
+            <MenuFilters selected={category} onChange={setCategory} />
             {status === "loading" && (
               <p className="products-message">Loading products...</p>
             )}

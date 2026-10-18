@@ -1,4 +1,9 @@
 export const ProductCategory = {
+  COFFEE: "COFFEE",
+  TEA: "TEA",
+  ADE: "ADE",
+  SMOOTHIE: "SMOOTHIE",
+  DESSERT: "DESSERT",
   CUPCAKE: "CUPCAKE",
   CAKE: "CAKE",
   BIRTHDAY_CAKE: "BIRTHDAY_CAKE",

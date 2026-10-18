@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { formatUSD } from "../../../lib/currency";
+import { formatKRW } from "../../../lib/currency";
 import { OrderStatus, type OrderStatus as OrderStatusType } from "../../../lib/enums/order.enum";
 import type { OrderTracking } from "../../../lib/types/order";
 import Footer from "../../components/footer";
@@ -194,11 +194,11 @@ export default function OrderTrackingPage() {
                       <div className="tracking-item" key={item.productId}>
                         <img alt="" src={getProductImageUrl(item.productImage)} />
                         <div><strong>{item.productName}</strong><span>Quantity: {item.quantity}</span></div>
-                        <strong>{formatUSD(item.itemTotal)}</strong>
+                        <strong>{formatKRW(item.itemTotal)}</strong>
                       </div>
                     ))}
                   </div>
-                  <div className="tracking-total"><span>Total</span><strong>{formatUSD(order.total)}</strong></div>
+                  <div className="tracking-total"><span>Total</span><strong>{formatKRW(order.total)}</strong></div>
                   <div className="tracking-address"><small>Delivery address</small><strong>{order.address}</strong></div>
                 </section>
 

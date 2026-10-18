@@ -1,5 +1,6 @@
+import { getMenuCategory } from "../../../lib/menu";
 import type { MouseEvent } from "react";
-import { convertLegacyPriceToUSD, formatUSD } from "../../../lib/currency";
+import { formatKRW } from "../../../lib/currency";
 import { animateToBasket } from "../../../lib/animateToBasket";
 import useBasket from "../../hooks/useBasket";
 import type { Product } from "../../../lib/types/product";
@@ -11,7 +12,7 @@ type ProductCardProps = {
 
 export default function ProductCard({ product }: ProductCardProps) {
   const { addItem } = useBasket();
-  const price = convertLegacyPriceToUSD(product.productPrice);
+  const price = product.productPrice;
 
   const handleAddToBasket = (event: MouseEvent<HTMLButtonElement>) => {
     const card = event.currentTarget.closest(".products-card");
@@ -30,16 +31,17 @@ export default function ProductCard({ product }: ProductCardProps) {
     <article className="products-card">
       <div className="products-card__image">
         <img
+          loading="lazy"
           alt={product.productName}
           src={getProductImageUrl(product.productImage)}
         />
-        <span>{product.productCategory}</span>
+        <span>{getMenuCategory(product.productCategory)}</span>
       </div>
       <div className="products-card__body">
         <h2>{product.productName}</h2>
-        <p>{product.productDesc || "A freshly made Sweet Shop dessert."}</p>
+        <p>{product.productDesc || "Discover your next favorite."}</p>
         <div className="products-card__footer">
-          <strong>{formatUSD(price)}</strong>
+          <strong>{formatKRW(price)}</strong>
           <button
             className="button button--yellow button--small"
             onClick={handleAddToBasket}

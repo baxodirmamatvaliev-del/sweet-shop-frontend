@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Footer from "../../components/footer";
 import OtherNavbar from "../../components/headers/OtherNavbar";
 import useBasket from "../../hooks/useBasket";
-import { formatUSD } from "../../../lib/currency";
+import { formatKRW } from "../../../lib/currency";
 import { DELIVERY_FEE, FREE_DELIVERY_LIMIT } from "../../../lib/config";
 import type { CreatedOrder } from "../../../lib/types/order";
 import { useAppSelector } from "../../hooks";
@@ -304,13 +304,13 @@ export default function OrderPage() {
                         {item.name} × {item.quantity}
                         {item.cakeConfiguration && <small>Custom cake</small>}
                       </span>
-                      <strong>{formatUSD(item.price * item.quantity)}</strong>
+                      <strong>{formatKRW(item.price * item.quantity)}</strong>
                     </div>
                   ))}
                 </div>
-                <div className="order-summary__row"><span>Subtotal</span><strong>{formatUSD(subtotal)}</strong></div>
-                <div className="order-summary__row"><span>Delivery</span><strong>{delivery === 0 ? "Free" : formatUSD(delivery)}</strong></div>
-                <div className="order-summary__total"><span>Total</span><strong>{formatUSD(total)}</strong></div>
+                <div className="order-summary__row"><span>Subtotal</span><strong>{formatKRW(subtotal)}</strong></div>
+                <div className="order-summary__row"><span>Delivery</span><strong>{delivery === 0 ? "Free" : formatKRW(delivery)}</strong></div>
+                <div className="order-summary__total"><span>Total</span><strong>{formatKRW(total)}</strong></div>
               </aside>
             </div>
           )}
