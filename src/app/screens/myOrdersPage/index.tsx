@@ -98,7 +98,7 @@ export default function MyOrdersPage() {
           <header className="my-orders-heading">
             <p>ORDER HISTORY</p>
             <h1>My orders</h1>
-            <span>Track and review all the sweets you have ordered.</span>
+            <span>Track and review your coffee and treats.</span>
           </header>
 
           {status === "loading" && <div className="my-orders-state">Loading your orders...</div>}
@@ -166,7 +166,7 @@ export default function MyOrdersPage() {
                                 : ""}
                             </span>
                           ) : (
-                            <span>Sweet Shop product</span>
+                            <span>Morrow Coffee</span>
                           )}
                           {item.aiDesign && (
                             <span>AI concept attached: {item.aiDesign.prompt}</span>

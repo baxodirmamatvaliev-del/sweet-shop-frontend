@@ -1,13 +1,14 @@
-# Sweet Shop Frontend
+# Morrow Coffee Frontend
 
-Customer-facing web application for browsing Sweet Shop products, managing a
+Customer-facing web application for browsing Morrow Coffee drinks and treats, managing a
 basket, placing orders, and tracking order history.
 
 ## Features
 
 - Member signup, login, profile editing, and protected routes
-- Product catalog and birthday cake sections
-- Persistent basket and checkout flow
+- Coffee menu with category filters, search, sorting and HOT/ICE labels
+- Persistent basket and checkout flow with KRW prices
+- ₩3,000 delivery; free delivery on orders of ₩20,000 or more
 - Member order history and pending-order cancellation
 - Responsive layouts for desktop, tablet, and mobile
 

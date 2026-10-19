@@ -8,7 +8,6 @@ import OrderPage from "./screens/orderPage";
 import ProductsPage from "./screens/productsPage";
 import MyOrdersPage from "./screens/myOrdersPage";
 import OrderTrackingPage from "./screens/orderTrackingPage";
-import CakeBuilderPage from "./screens/cakeBuilderPage";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import { useAppDispatch } from "./hooks";
 import { logout } from "./screens/authPage/slice";
@@ -72,11 +71,7 @@ export default function App() {
         />
         <Route
           path="/cake-builder/:productId"
-          element={
-            <ProtectedRoute>
-              <CakeBuilderPage />
-            </ProtectedRoute>
-          }
+          element={<Navigate to="/products" replace />}
         />
         <Route path="/auth/*" element={<AuthPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />

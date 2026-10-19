@@ -29,7 +29,7 @@ export async function getProduct(productId: string): Promise<Product> {
   };
 
   if (!response.ok || !result.data) {
-    throw new Error(result.message ?? "Cake could not be loaded.");
+    throw new Error(result.message ?? "Product could not be loaded.");
   }
 
   return result.data;

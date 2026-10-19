@@ -302,7 +302,7 @@ export default function OrderPage() {
                     <div className="order-summary__item" key={item.lineId}>
                       <span>
                         {item.name} × {item.quantity}
-                        {item.cakeConfiguration && <small>Custom cake</small>}
+                        {item.cakeConfiguration && <small>Customized item</small>}
                       </span>
                       <strong>{formatKRW(item.price * item.quantity)}</strong>
                     </div>
