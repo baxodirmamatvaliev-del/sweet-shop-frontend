@@ -7,7 +7,7 @@ type ProductsListProps = {
 
 export default function ProductsList({ products }: ProductsListProps) {
   if (products.length === 0) {
-    return <p className="products-message">No matching products found.</p>;
+    return <p className="products-message">No drinks found. Try another category or search.</p>;
   }
 
   return (

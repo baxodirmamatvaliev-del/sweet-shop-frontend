@@ -115,8 +115,8 @@ export default function ProfileMenu() {
               )}
             </div>
             <div className="profile-menu__identity">
-              <strong>{member?.memberNick ?? "Sweet Shop member"}</strong>
-              <small>Sweet Shop member</small>
+              <strong>{member?.memberNick ?? "Morrow Coffee member"}</strong>
+              <small>Morrow Coffee member</small>
             </div>
           </div>
 

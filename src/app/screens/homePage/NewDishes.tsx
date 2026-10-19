@@ -1,12 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import MenuFilters from "../../components/MenuFilters";
-import { getMenuCategory, type MenuCategory } from "../../../lib/menu";
+import { getMenuCategory, isMenuProduct, type MenuCategory } from "../../../lib/menu";
 import { Link } from "react-router-dom";
-import useBasket from "../../hooks/useBasket";
+import ProductCard from "../productsPage/ProductCard";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { getProductImageUrl } from "../../services/ProductService";
-import { formatKRW } from "../../../lib/currency";
-import { animateToBasket } from "../../../lib/animateToBasket";
 import {
   selectProducts,
   selectProductsError,
@@ -18,7 +15,6 @@ export default function NewDishes() {
   const [category, setCategory] = useState<MenuCategory>("All");
   const trackRef = useRef<HTMLDivElement>(null);
   const [canScroll, setCanScroll] = useState({ back: false, forward: false });
-  const { addItem } = useBasket();
   const dispatch = useAppDispatch();
   const products = useAppSelector(selectProducts);
   const status = useAppSelector(selectProductsStatus);
@@ -26,10 +22,10 @@ export default function NewDishes() {
   const newestProducts = products
     .filter(
       (product) =>
-        product.productCategory.toUpperCase() !== "BIRTHDAY_CAKE" &&
+        isMenuProduct(product) &&
         (category === "All" || getMenuCategory(product.productCategory) === category),
     )
-    .slice(-6);
+    .slice(-8).reverse();
 
   const updateControls = useCallback(() => {
     const track = trackRef.current;
@@ -63,9 +59,7 @@ export default function NewDishes() {
           <div>
             <p className="home-kicker">OUR MENU</p>
             <h2>
-              Find your
-              <br />
-              next favorite
+              Coffee for every kind of day
             </h2>
           </div>
           <p>
@@ -86,7 +80,7 @@ export default function NewDishes() {
           </div>
         )}
         {status === "succeeded" && newestProducts.length === 0 && (
-          <p className="catalog__message">No products in this category yet.</p>
+          <p className="catalog__message">Your next favorite is on its way. Check back soon.</p>
         )}
         {newestProducts.length > 0 && (
           <div
@@ -99,48 +93,7 @@ export default function NewDishes() {
             aria-label="Latest products"
             tabIndex={0}
           >
-            {newestProducts.map((product) => {
-              const image = getProductImageUrl(product.productImage);
-              const price = product.productPrice;
-
-              return (
-                <article className="product-card" key={product._id}>
-                  <div className="product-card__media">
-                    <img src={image} alt={product.productName} loading="lazy" />
-                    <span>{getMenuCategory(product.productCategory)}</span>
-                  </div>
-                  <div className="product-card__body">
-                    <h3>{product.productName}</h3>
-                    <p>
-                      {product.productDesc ||
-                        "Discover your next favorite."}
-                    </p>
-                    <div className="product-card__footer">
-                      <strong>{formatKRW(price)}</strong>
-                      <button
-                        className="button button--small"
-                        onClick={(event) => {
-                          const card =
-                            event.currentTarget.closest(".product-card");
-                          const added = addItem({
-                            productId: product._id,
-                            name: product.productName,
-                            image,
-                            price,
-                          });
-                          if (!added) return;
-
-                          animateToBasket(card?.querySelector("img") ?? null);
-                        }}
-                        type="button"
-                      >
-                        Add to basket
-                      </button>
-                    </div>
-                  </div>
-                </article>
-              );
-            })}
+            {newestProducts.map((product) => <ProductCard key={product._id} product={product} />)}
           </div>
         )}
         {newestProducts.length > 0 && (

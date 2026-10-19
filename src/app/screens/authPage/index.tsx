@@ -32,17 +32,17 @@ export default function AuthPage() {
     <main className="auth-page">
       <section className="auth-page__intro">
         <Link className="auth-page__brand" to="/">
-          <span>Sweet</span> Shop
+          Morrow Coffee
         </Link>
         <div>
-          <p className="home-kicker home-kicker--dark">WELCOME TO SWEET SHOP</p>
-          <h1>{isSignup ? "Create your sweet account" : "Welcome back"}</h1>
+          <p className="home-kicker home-kicker--dark">WELCOME TO MORROW COFFEE</p>
+          <h1>{isSignup ? "Create your Morrow account" : "Welcome back"}</h1>
           <p>
-            Save your details, manage your basket, and make every celebration
-            a little sweeter.
+            Save your details, manage your basket, and find your next
+            favorite coffee.
           </p>
         </div>
-        <small>Handcrafted with care for your special moments.</small>
+        <small>A little pause. A favorite cup. A Morrow moment.</small>
       </section>
 
       <section className="auth-page__content">

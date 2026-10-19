@@ -22,3 +22,6 @@ export const ProductStatus = {
 } as const;
 
 export type ProductStatus = (typeof ProductStatus)[keyof typeof ProductStatus];
+
+export const ProductTemperature = { ICE: "ICE", HOT: "HOT" } as const;
+export type ProductTemperature = (typeof ProductTemperature)[keyof typeof ProductTemperature];

@@ -37,8 +37,8 @@ export default function QuickOrder() {
       <div className="quick-order__panel">
         <div>
           <p className="home-kicker home-kicker--dark">CALLBACK REQUEST</p>
-          <h2>Need help choosing a cake?</h2>
-          <p>Leave your phone number and our team will call you within 15 minutes.</p>
+          <h2>Let’s talk coffee.</h2>
+          <p>Have a question about your order? Leave your number and we’ll get back to you.</p>
         </div>
         <form className="quick-order__form" onSubmit={handleSubmit}>
           <input

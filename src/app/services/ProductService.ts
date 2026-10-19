@@ -36,7 +36,7 @@ export async function getProduct(productId: string): Promise<Product> {
 }
 
 export function getProductImageUrl(image?: string): string {
-  if (!image) return "/img/krem.zamok1.png";
+  if (!image) return "/img/morrow-coffee-logo.svg";
   if (image.startsWith("http://") || image.startsWith("https://")) return image;
   if (image.startsWith("/img/")) return image;
 
