@@ -1,7 +1,7 @@
 export default function Advertisement() {
   return (
     <section className="hero" id="top" aria-labelledby="hero-title">
-      <h1 className="hero__title" id="hero-title">Mega Coffee — a latte for today</h1>
+      <h1 className="hero__title" id="hero-title">Morrow Coffee — a latte for today</h1>
       <img
         className="hero__image"
         src="/img/mega-coffee/latte-banner.webp"

@@ -50,8 +50,8 @@ export default function HomeNavbar() {
       <header className="navbar navbar--home">
         <Link className="navbar__brand" to="/">
           <img
-            src="/img/mega-coffee/logo.png"
-            alt="Mega MGC Coffee — Big size, 2 shot"
+            src="/img/morrow-coffee-logo.svg"
+            alt="Morrow Coffee — Big size, 2 shot"
             width="380"
             height="97"
           />
