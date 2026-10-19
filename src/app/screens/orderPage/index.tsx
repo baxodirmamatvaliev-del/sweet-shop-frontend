@@ -138,7 +138,7 @@ export default function OrderPage() {
               <span aria-hidden="true">✓</span>
               <p className="order-kicker">ORDER CONFIRMED</p>
               <h2>Thank you for your order!</h2>
-              <p>Your sweets are now being prepared. We will contact you shortly to confirm delivery.</p>
+              <p>Your order has been received. Track its progress and delivery below.</p>
               <div>
                 <small>Order number</small>
                 <strong>#{createdOrder._id.slice(-8).toUpperCase()}</strong>
@@ -157,8 +157,8 @@ export default function OrderPage() {
           ) : items.length === 0 ? (
             <section className="order-empty">
               <h2>Your basket is empty</h2>
-              <p>Add a dessert before continuing to checkout.</p>
-              <Link className="button button--yellow" to="/products">Browse catalog</Link>
+              <p>Add coffee or treats before continuing to checkout.</p>
+              <Link className="button button--yellow" to="/products">Explore the menu</Link>
             </section>
           ) : (
             <div className="order-layout">

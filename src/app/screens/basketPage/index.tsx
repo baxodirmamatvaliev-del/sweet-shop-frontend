@@ -33,8 +33,8 @@ export default function BasketPage() {
           {items.length === 0 ? (
             <section className="basket-empty">
               <h2>Your basket is empty</h2>
-              <p>Add your favorite desserts from our catalog.</p>
-              <Link className="button button--yellow" to="/products">Browse catalog</Link>
+              <p>Find your next favorite coffee and treats.</p>
+              <Link className="button button--yellow" to="/products">Explore the menu</Link>
             </section>
           ) : (
             <div className="basket-layout">

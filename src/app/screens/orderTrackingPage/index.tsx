@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { formatKRW } from "../../../lib/currency";
-import { OrderStatus, type OrderStatus as OrderStatusType } from "../../../lib/enums/order.enum";
+import { OrderStatus, orderStatusLabels as statusLabels, type OrderStatus as OrderStatusType } from "../../../lib/enums/order.enum";
 import type { OrderTracking } from "../../../lib/types/order";
 import Footer from "../../components/footer";
 import OtherNavbar from "../../components/headers/OtherNavbar";
@@ -14,22 +14,11 @@ import {
 const progressStatuses: Array<{ status: OrderStatusType; label: string; detail: string }> = [
   { status: OrderStatus.PENDING, label: "Order received", detail: "We received your order." },
   { status: OrderStatus.CONFIRMED, label: "Confirmed", detail: "Your order has been confirmed." },
-  { status: OrderStatus.BAKING, label: "Baking", detail: "Your sweets are in the oven." },
-  { status: OrderStatus.DECORATING, label: "Decorating", detail: "Finishing touches are being added." },
+  { status: OrderStatus.BAKING, label: statusLabels.BAKING, detail: "We are preparing your coffee and treats." },
+  { status: OrderStatus.DECORATING, label: statusLabels.DECORATING, detail: "Your order is packed and ready to go." },
   { status: OrderStatus.OUT_FOR_DELIVERY, label: "Out for delivery", detail: "Your order is on the way." },
   { status: OrderStatus.DELIVERED, label: "Delivered", detail: "Your order has arrived." },
 ];
-
-const statusLabels: Record<OrderStatusType, string> = {
-  PENDING: "Pending",
-  CONFIRMED: "Confirmed",
-  BAKING: "Baking",
-  DECORATING: "Decorating",
-  OUT_FOR_DELIVERY: "Out for delivery",
-  DELIVERED: "Delivered",
-  CANCELLED: "Cancelled",
-  PROCESS: "Processing",
-};
 
 const formatDateTime = (value: string) =>
   new Intl.DateTimeFormat("en", {
@@ -71,7 +60,7 @@ export default function OrderTrackingPage() {
               notificationPermissionRef.current === "granted" &&
               document.hidden
             ) {
-              new Notification("Sweet Shop order update", {
+              new Notification("Morrow Coffee order update", {
                 body: `Order #${updatedOrder._id.slice(-8).toUpperCase()} is now ${statusLabels[updatedOrder.orderStatus].toLowerCase()}.`,
               });
             }

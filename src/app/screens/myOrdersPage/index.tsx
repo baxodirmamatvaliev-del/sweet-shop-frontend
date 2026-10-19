@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { orderStatusLabels } from "../../../lib/enums/order.enum";
 import { formatKRW } from "../../../lib/currency";
 import Footer from "../../components/footer";
 import OtherNavbar from "../../components/headers/OtherNavbar";
@@ -130,7 +131,7 @@ export default function MyOrdersPage() {
                     <div className="my-order-card__status-group">
                       <small>Order status</small>
                       <span className={`my-order-card__status my-order-card__status--${order.orderStatus.toLowerCase()}`}>
-                        {order.orderStatus}
+                        {orderStatusLabels[order.orderStatus]}
                       </span>
                       <Link className="my-order-card__track" to={`/orders/${order._id}/track`}>
                         Track order

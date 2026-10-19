@@ -10,7 +10,7 @@
 
 .basket-main {
   min-height: calc(100vh - 160px);
-  padding: 130px 0 100px;
+  padding: 48px 0 80px;
 }
 
 .basket-container {
@@ -89,6 +89,7 @@
 .basket-item__info h2 {
   margin: 0 0 8px;
   font-size: 20px;
+  overflow-wrap: anywhere;
 }
 
 .basket-item__info strong {
@@ -223,7 +224,13 @@
   }
 
   .basket-main {
-    padding-top: 105px;
+    padding-top: 32px;
+  }
+
+  .basket-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 16px;
   }
 
   .basket-item {

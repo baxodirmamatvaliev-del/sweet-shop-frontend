@@ -10,3 +10,14 @@ export const OrderStatus = {
 } as const;
 
 export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus];
+
+export const orderStatusLabels: Record<OrderStatus, string> = {
+  PENDING: "Pending",
+  CONFIRMED: "Confirmed",
+  BAKING: "Preparing",
+  DECORATING: "Ready to dispatch",
+  OUT_FOR_DELIVERY: "Out for delivery",
+  DELIVERED: "Delivered",
+  CANCELLED: "Cancelled",
+  PROCESS: "Processing",
+};
