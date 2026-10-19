@@ -98,23 +98,6 @@
   color: var(--color-text-muted);
 }
 
-.basket-item__customization {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px 12px;
-  margin: 0 0 12px;
-  padding: 0;
-  color: var(--color-text-muted);
-  font-size: 11px;
-  list-style: none;
-}
-
-.basket-item__customization li::before {
-  margin-right: 5px;
-  color: var(--color-primary);
-  content: "•";
-}
-
 .basket-item__remove {
   padding: 0;
 }

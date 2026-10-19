@@ -103,10 +103,6 @@ export default function OrderPage() {
         items: items.map((item) => ({
           productId: item.productId,
           quantity: item.quantity,
-          ...(item.cakeConfiguration
-            ? { cakeConfiguration: item.cakeConfiguration }
-            : {}),
-          ...(item.aiDesignId ? { aiDesignId: item.aiDesignId } : {}),
         })),
       });
       setCreatedOrder(order);
@@ -302,7 +298,6 @@ export default function OrderPage() {
                     <div className="order-summary__item" key={item.lineId}>
                       <span>
                         {item.name} × {item.quantity}
-                        {item.cakeConfiguration && <small>Customized item</small>}
                       </span>
                       <strong>{formatKRW(item.price * item.quantity)}</strong>
                     </div>

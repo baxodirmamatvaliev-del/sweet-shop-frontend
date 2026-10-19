@@ -44,13 +44,6 @@ export default function BasketPage() {
                     <img alt={item.name} src={item.image} />
                     <div className="basket-item__info">
                       <h2>{item.name}</h2>
-                      {item.customizationSummary && (
-                        <ul className="basket-item__customization">
-                          {item.customizationSummary.map((detail) => (
-                            <li key={detail}>{detail}</li>
-                          ))}
-                        </ul>
-                      )}
                       <strong>{formatKRW(item.price)}</strong>
                       <button className="basket-item__remove" onClick={() => removeItem(item.lineId)} type="button"><TrashIcon size={16} /> Remove</button>
                     </div>

@@ -1,3 +1,4 @@
+// Historical order snapshots only; new orders use coffee products.
 export const CakeOptionType = {
   SIZE: "SIZE",
   SPONGE: "SPONGE",
@@ -11,34 +12,6 @@ export const CakeOptionType = {
 
 export type CakeOptionType =
   (typeof CakeOptionType)[keyof typeof CakeOptionType];
-
-export interface CakeOption {
-  _id: string;
-  optionType: CakeOptionType;
-  code: string;
-  name: string;
-  description: string;
-  priceModifier: number;
-  previewImage: string;
-  previewColor: string;
-  sortOrder: number;
-}
-
-export interface CakeLayerConfiguration {
-  spongeOptionId: string;
-  fillingOptionId: string;
-}
-
-export interface CakeConfigurationInput {
-  sizeOptionId: string;
-  layers: CakeLayerConfiguration[];
-  creamOptionId: string;
-  frostingOptionId: string;
-  chocolateOptionIds: string[];
-  fruitOptionIds: string[];
-  decorationOptionIds: string[];
-  message: string;
-}
 
 export interface CakeOptionSnapshot {
   optionId: string;

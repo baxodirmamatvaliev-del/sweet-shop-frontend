@@ -10,12 +10,14 @@ const readSavedBasket = (): BasketItem[] => {
   try {
     const savedBasket = localStorage.getItem(BASKET_STORAGE_KEY);
     const parsedBasket = savedBasket
-      ? (JSON.parse(savedBasket) as BasketItem[])
+      ? (JSON.parse(savedBasket) as (BasketItem & { cakeConfiguration?: unknown; aiDesignId?: unknown })[])
       : [];
 
     return parsedBasket
       .filter(
         (item) =>
+        !item.cakeConfiguration &&
+        !item.aiDesignId &&
         typeof item.productId === "string" &&
         typeof item.name === "string" &&
         typeof item.image === "string" &&
